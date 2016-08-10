@@ -21,6 +21,8 @@ nbactions.xml
 .idea
 additional-libraries
 profiles.xml
+nb-configuration.xml
+
 
 #ignore generated .class files
 *.class
