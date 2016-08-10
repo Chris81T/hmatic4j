@@ -29,7 +29,7 @@ public interface HomematicSpec {
     
     List<Object> listDevices();
     
-    Object getDeviceDesription(String address);
+    Object getDeviceDescription(String address);
     
     Object getParamsetDescription(String address, String paramsetType);
     
