@@ -27,11 +27,11 @@ import de.chrthms.hmatic4j.rpc.exceptions.HMaticServiceException;
  */
 public interface HMaticServiceBuilder extends HMaticBuilder {
 
-    static HMaticServiceBuilder getInstance() {
-        return new HMaticServiceBuilderImpl();
+    static HMaticServiceBuilder getInstance(BidCosMode mode) {
+        return new HMaticServiceBuilderImpl(mode);
     }
     
-    HMaticServiceBuilder mode(BidCosMode mode);
+    HMaticServiceBuilder port(String port);
     
     HMaticServiceBuilder serverAddress(String address);
     

@@ -16,14 +16,15 @@
 package de.chrthms.hmatic4j.rpc.impl;
 
 import de.chrthms.hmatic4j.rpc.HMaticConnection;
-import de.chrthms.hmatic4j.specs.HomematicSpec;
 import java.util.List;
+import de.chrthms.hmatic4j.specs.Homematic;
+import de.chrthms.hmatic4j.specs.HomematicBidCosWired;
 
 /**
  *
  * @author christian
  */
-public class HMaticWiredConnection implements HMaticConnection, HomematicSpec {
+public class HMaticWiredConnection implements HMaticConnection, HomematicBidCosWired {
 
     @Override
     public void init(String url, String interfaceId) {

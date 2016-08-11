@@ -16,14 +16,14 @@
 package de.chrthms.hmatic4j.rpc.impl;
 
 import de.chrthms.hmatic4j.rpc.HMaticConnection;
-import de.chrthms.hmatic4j.specs.HomematicSpecBidcosRF;
 import java.util.List;
+import de.chrthms.hmatic4j.specs.HomematicBidCosRF;
 
 /**
  *
  * @author christian
  */
-public class HMaticWirelessConnection implements HMaticConnection, HomematicSpecBidcosRF {
+public class HMaticWirelessConnection implements HMaticConnection, HomematicBidCosRF {
 
     @Override
     public Object getParamset(String address, String paramsetKey, Integer mode) {
@@ -67,26 +67,6 @@ public class HMaticWirelessConnection implements HMaticConnection, HomematicSpec
 
     @Override
     public String getParamsetId(String address, String type) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Object getParamset(String address, String paramsetKey) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void putParamset(String address, String paramsetKey, Object paramset) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Object getValue(String address, String valueKey) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void setValue(String address, String valueKey, Object value) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

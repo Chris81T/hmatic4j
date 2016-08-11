@@ -15,8 +15,8 @@
  */
 package de.chrthms.hmatic4j.rpc.impl;
 
+import de.chrthms.hmatic4j.rpc.HMaticConnection;
 import de.chrthms.hmatic4j.rpc.enums.BidCosMode;
-import de.chrthms.hmatic4j.rpc.impl.HMaticServiceImpl;
 import de.chrthms.hmatic4j.rpc.HMaticService;
 import de.chrthms.hmatic4j.rpc.exceptions.HMaticServiceException;
 
@@ -26,13 +26,29 @@ import de.chrthms.hmatic4j.rpc.exceptions.HMaticServiceException;
  */
 public class HMaticServiceBuilderImpl implements HMaticServiceBuilder {
 
-    private HMaticService service = new HMaticServiceImpl();
+    private final HMaticService<? extends HMaticConnection> service;
     
-    HMaticServiceBuilderImpl() {}
+    HMaticServiceBuilderImpl(BidCosMode mode) {
+        
+        switch (mode) {
+            case WIRED:
+                HMaticService<HMaticWiredConnection> wiredService = new HMaticServiceImpl<>(mode);                
+                service = wiredService;
+                break;
+            case WIRELESS:
+                HMaticService<HMaticWirelessConnection> wirelessService = new HMaticServiceImpl<>(mode);                
+                service = wirelessService;
+                break;
+            default:
+                service = null;
+                throw new HMaticServiceException("Cannot prepare HMaticService. Unsupported BidCosMode = " + mode);
+        }
+    
+    }
     
     @Override
-    public HMaticServiceBuilder mode(BidCosMode mode) {
-        service.setMode(mode);
+    public HMaticServiceBuilder port(String port) {
+        service.setPort(port);
         return this;
     }
 
@@ -43,26 +59,12 @@ public class HMaticServiceBuilderImpl implements HMaticServiceBuilder {
     }
 
     /**
-     * Check the selected BidCosMode to provide the relevant implementation of
-     * Homematic Specification.
-     * 
-     * Wireless has some different methods as the Wired mode.
      * 
      * @return the baked service
      */
     @Override
     public HMaticService build() throws HMaticServiceException {
-        
-        switch (service.getMode()) {
-            case WIRED:
-                // TODO continue here.. Think about the connection pattern/behaviour!
-                break;
-            case WIRELESS:
-                break;
-            default:
-                throw new HMaticServiceException("At least one BidCosMode must be set!");
-        }
-        
+                
         return service;
     }
     

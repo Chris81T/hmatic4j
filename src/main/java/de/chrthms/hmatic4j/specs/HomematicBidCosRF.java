@@ -15,32 +15,18 @@
  */
 package de.chrthms.hmatic4j.specs;
 
-import java.util.List;
-
 /**
  *
  * @author christian
  */
-public interface HomematicSpec {
+public interface HomematicBidCosRF extends Homematic {
     
-    // TODO all Object references must be replaced with concrete object classes!
+    Object getParamset(String address, String paramsetKey, Integer mode);
     
-    void init(String url, String interfaceId);
-    
-    List<Object> listDevices();
-    
-    Object getDeviceDescription(String address);
-    
-    Object getParamsetDescription(String address, String paramsetType);
-    
-    String getParamsetId(String address, String type);
-    
-    Object getParamset(String address, String paramsetKey);
-    
-    void putParamset(String address, String paramsetKey, Object paramset);
+    void putParamset(String address, String paramsetKey, Object paramset, String rxMode);
 
-    Object getValue(String address, String valueKey);
+    Object getValue(String address, String valueKey, Integer mode);
     
-    void setValue(String address, String valueKey, Object value);
-    
+    void setValue(String address, String valueKey, Object value, String rxMode);
+        
 }

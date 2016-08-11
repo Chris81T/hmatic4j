@@ -13,28 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j.rpc;
-
-import de.chrthms.hmatic4j.rpc.enums.BidCosMode;
+package de.chrthms.hmatic4j.specs;
 
 /**
  *
  * @author christian
  */
-public interface HMaticService<T extends HMaticConnection> {
+public interface HomematicBidCosWired extends Homematic {
+ 
+    Object getParamset(String address, String paramsetKey);
     
-    String getServerAddress();
+    void putParamset(String address, String paramsetKey, Object paramset);
+
+    Object getValue(String address, String valueKey);
     
-    void setServerAddress(String address);
-    
-    String getPort();
-    
-    void setPort(String port);
-    
-    String getUrl();
-    
-    BidCosMode getMode();    
-    
-    T getConnection();
+    void setValue(String address, String valueKey, Object value);  
     
 }

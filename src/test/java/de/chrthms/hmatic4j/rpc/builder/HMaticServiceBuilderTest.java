@@ -31,56 +31,79 @@ import de.chrthms.hmatic4j.rpc.HMaticService;
  * @author christian
  */
 public class HMaticServiceBuilderTest {
-    
+
     public HMaticServiceBuilderTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
 
-     @Test
-     public void getInstance() {     
-        HMaticServiceBuilder builder = HMaticServiceBuilder.getInstance();
-         assertTrue(builder instanceof HMaticServiceBuilderImpl);         
-     }
-     
-     @Test
-     public void setMode() {
-         
-         final BidCosMode mode = BidCosMode.WIRELESS;
-         
-        HMaticService service = HMaticServiceBuilder.getInstance()
-                .mode(mode)
-                .build();
-        
-         assertTrue(mode.equals(service.getMode()));
-         
-     }
+    @Test
+    public void getInstance() {
+        HMaticServiceBuilder builder = HMaticServiceBuilder.getInstance(BidCosMode.WIRELESS);
+        assertTrue(builder instanceof HMaticServiceBuilderImpl);
+    }
 
-     @Test
-     public void setServerAddress() {
-         
-         final String address = "192.168.77.7";
-         
-        HMaticService service = HMaticServiceBuilder.getInstance()
-                .mode(BidCosMode.WIRED)
+    @Test
+    public void setPort() {
+
+        final String port = "8181";
+
+        HMaticService service = HMaticServiceBuilder.getInstance(BidCosMode.WIRELESS)
+                .port(port)
+                .build();
+
+        assertTrue(port.equals(service.getPort()));
+
+    }
+
+    @Test
+    public void checkWirelessDefaultPort() {
+
+        final String port = "2001";
+
+        HMaticService service = HMaticServiceBuilder.getInstance(BidCosMode.WIRELESS)
+                .build();
+
+        assertTrue(port.equals(service.getPort()));
+
+    }
+
+    @Test
+    public void checkWiredDefaultPort() {
+
+        final String port = "2000";
+
+        HMaticService service = HMaticServiceBuilder.getInstance(BidCosMode.WIRED)
+                .build();
+
+        assertTrue(port.equals(service.getPort()));
+
+    }
+
+    @Test
+    public void setServerAddress() {
+
+        final String address = "192.168.77.7";
+
+        HMaticService service = HMaticServiceBuilder.getInstance(BidCosMode.WIRED)
                 .serverAddress(address)
                 .build();
-        
+
         assertTrue(address.equals(service.getServerAddress()));
-         
-     }
+
+    }
 }

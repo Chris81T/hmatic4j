@@ -22,12 +22,32 @@ import de.chrthms.hmatic4j.rpc.HMaticService;
 /**
  *
  * @author christian
+ * 
+ * @param <T> it is relevant to define the concrete connection class. This is relevant 
+ *            for the service builder.
  */
-public class HMaticServiceImpl implements HMaticService {
+public class HMaticServiceImpl<T extends HMaticConnection> implements HMaticService<T> {
+
+    private static final String BID_COS_WIRED_DEFAULT_PORT = "2000";
+    private static final String BID_COS_RF_DEFAULT_PORT = "2001";
+    
+    private final BidCosMode mode;
 
     private String serverAddress = null;
-    private BidCosMode mode = null;
-    
+    private String port = null;
+
+    HMaticServiceImpl(BidCosMode mode) {
+        this.mode = mode;
+        
+        switch (mode) {
+            case WIRED:
+                port = BID_COS_WIRED_DEFAULT_PORT;
+                break;
+            case WIRELESS:
+                port = BID_COS_RF_DEFAULT_PORT;            
+        }
+    }
+
     @Override
     public String getServerAddress() {
         return serverAddress;
@@ -44,12 +64,31 @@ public class HMaticServiceImpl implements HMaticService {
     }
 
     @Override
-    public void setMode(BidCosMode mode) {
-        this.mode = mode;
+    public String getPort() {
+        return port;
+    }
+
+    /**
+     * Normally the BidCos mode will define the port. But it is possible to force
+     * override the default port.
+     * 
+     * @param port 
+     */
+    @Override
+    public void setPort(String port) {
+        this.port = port;
     }
 
     @Override
-    public HMaticConnection getConnection() {
+    public String getUrl() {
+        StringBuilder builder = new StringBuilder(serverAddress);
+        builder.append(":");
+        builder.append(port);
+        return builder.toString();
+    }
+
+    @Override
+    public T getConnection() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
