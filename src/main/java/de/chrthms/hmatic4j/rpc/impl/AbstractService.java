@@ -20,8 +20,6 @@ import de.chrthms.hmatic4j.rpc.HMaticConnection;
 import de.chrthms.hmatic4j.rpc.HMaticService;
 import de.chrthms.hmatic4j.rpc.exceptions.HMaticServiceException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -30,7 +28,7 @@ import java.util.logging.Logger;
  * @param <T> it is relevant to define the concrete connection class. This is relevant 
  *            for the service builder.
  */
-public class HMaticServiceImpl<T extends HMaticConnection> implements HMaticService<T> {
+public abstract class AbstractService<T extends HMaticConnection> implements HMaticService<T> {
 
     private static final String BID_COS_WIRED_DEFAULT_PORT = "2000";
     private static final String BID_COS_RF_DEFAULT_PORT = "2001";
@@ -41,7 +39,7 @@ public class HMaticServiceImpl<T extends HMaticConnection> implements HMaticServ
     private String serverAddress = null;
     private String port = null;
 
-    HMaticServiceImpl(BidCosMode mode, Class<T> connectionClass) {
+    AbstractService(BidCosMode mode, Class<T> connectionClass) {
         this.mode = mode;
         this.connectionClass = connectionClass;
         

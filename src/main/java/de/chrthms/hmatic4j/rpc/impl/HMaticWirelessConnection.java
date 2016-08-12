@@ -25,7 +25,7 @@ import de.chrthms.hmatic4j.specs.HomematicBidCosRF;
  *
  * @author christian
  */
-public class HMaticWirelessConnection extends AbstractConnection  implements HMaticConnection, HomematicBidCosRF {
+public class HMaticWirelessConnection extends AbstractConnection implements HMaticConnection, HomematicBidCosRF {
 
     public HMaticWirelessConnection(HMaticService service) {
         super(service);
@@ -48,31 +48,6 @@ public class HMaticWirelessConnection extends AbstractConnection  implements HMa
 
     @Override
     public void setValue(String address, String valueKey, Object value, String rxMode) throws HMaticExecutionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void init(String url, String interfaceId) throws HMaticExecutionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Object> listDevices() throws HMaticExecutionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Object getDeviceDescription(String address) throws HMaticExecutionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Object getParamsetDescription(String address, String paramsetType) throws HMaticExecutionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getParamsetId(String address, String type) throws HMaticExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -21,15 +21,13 @@ import java.util.List;
  *
  * @author christian
  */
-public interface Homematic {
+public interface HomematicPush {
+
+    // TODO replace all object references with concrete types!
     
-    // TODO all Object references must be replaced with concrete object classes!
-        
-    Object getDeviceDescription(String address);
+    void init(String url, String interfaceId);
     
-    Object getParamsetDescription(String address, String paramsetType);
-    
-    String getParamsetId(String address, String type);
+    List<Object> listDevices();
     
     
 }

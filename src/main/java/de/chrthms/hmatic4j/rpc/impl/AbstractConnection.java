@@ -17,8 +17,11 @@ package de.chrthms.hmatic4j.rpc.impl;
 
 import de.chrthms.hmatic4j.rpc.HMaticService;
 import de.chrthms.hmatic4j.rpc.exceptions.HMaticExecutionException;
+import de.chrthms.hmatic4j.specs.Homematic;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
@@ -28,7 +31,7 @@ import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
  *
  * @author christian
  */
-public class AbstractConnection {
+public class AbstractConnection implements Homematic {
     
     private final HMaticService service;
 
@@ -57,8 +60,8 @@ public class AbstractConnection {
         
         return client;
     }
-    
-    protected Object execute(final String methodName, final List<Object> params) throws HMaticExecutionException {
+        
+    protected Object execute(final String methodName, final Object... params) throws HMaticExecutionException {
         try {
             return getClient().execute(methodName, params);
         } catch (XmlRpcException e) {
@@ -70,5 +73,20 @@ public class AbstractConnection {
             throw new HMaticExecutionException(msg.toString(), e);
         }
     }
+    
+    @Override
+    public Object getDeviceDescription(String address) throws HMaticExecutionException {                
+        return execute("getDeviceDescription", address);
+    }
+
+    @Override
+    public Object getParamsetDescription(String address, String paramsetType) throws HMaticExecutionException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getParamsetId(String address, String type) throws HMaticExecutionException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }    
     
 }

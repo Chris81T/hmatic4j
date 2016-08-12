@@ -13,23 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j.specs;
+package de.chrthms.hmatic4j.rpc.impl;
 
-import java.util.List;
+import de.chrthms.hmatic4j.rpc.enums.BidCosMode;
 
 /**
  *
  * @author christian
  */
-public interface Homematic {
+public class HMaticWiredService extends AbstractService<HMaticWiredConnection> {
     
-    // TODO all Object references must be replaced with concrete object classes!
-        
-    Object getDeviceDescription(String address);
-    
-    Object getParamsetDescription(String address, String paramsetType);
-    
-    String getParamsetId(String address, String type);
-    
+    public HMaticWiredService(BidCosMode mode, Class<HMaticWiredConnection> connectionClass) {
+        super(mode, connectionClass);
+    }
     
 }

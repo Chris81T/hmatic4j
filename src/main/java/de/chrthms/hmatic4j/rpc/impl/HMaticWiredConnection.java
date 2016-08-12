@@ -32,31 +32,6 @@ public class HMaticWiredConnection extends AbstractConnection implements HMaticC
     }
 
     @Override
-    public void init(String url, String interfaceId) throws HMaticExecutionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Object> listDevices() throws HMaticExecutionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Object getDeviceDescription(String address) throws HMaticExecutionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Object getParamsetDescription(String address, String paramsetType) throws HMaticExecutionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getParamsetId(String address, String type) throws HMaticExecutionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public Object getParamset(String address, String paramsetKey) throws HMaticExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
