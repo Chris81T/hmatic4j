@@ -16,10 +16,13 @@
 package de.chrthms.hmatic4j.rpc;
 
 import de.chrthms.hmatic4j.rpc.enums.BidCosMode;
+import de.chrthms.hmatic4j.rpc.exceptions.HMaticServiceException;
 
 /**
  *
  * @author christian
+ * 
+ * @param <T>
  */
 public interface HMaticService<T extends HMaticConnection> {
     
@@ -35,6 +38,6 @@ public interface HMaticService<T extends HMaticConnection> {
     
     BidCosMode getMode();    
     
-    T getConnection();
+    T getConnection() throws HMaticServiceException;
     
 }

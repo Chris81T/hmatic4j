@@ -16,58 +16,63 @@
 package de.chrthms.hmatic4j.rpc.impl;
 
 import de.chrthms.hmatic4j.rpc.HMaticConnection;
+import de.chrthms.hmatic4j.rpc.HMaticService;
+import de.chrthms.hmatic4j.rpc.exceptions.HMaticExecutionException;
 import java.util.List;
-import de.chrthms.hmatic4j.specs.Homematic;
 import de.chrthms.hmatic4j.specs.HomematicBidCosWired;
 
 /**
  *
  * @author christian
  */
-public class HMaticWiredConnection implements HMaticConnection, HomematicBidCosWired {
+public class HMaticWiredConnection extends AbstractConnection implements HMaticConnection, HomematicBidCosWired {
+
+    public HMaticWiredConnection(HMaticService service) {
+        super(service);
+    }
 
     @Override
-    public void init(String url, String interfaceId) {
+    public void init(String url, String interfaceId) throws HMaticExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Object> listDevices() {
+    public List<Object> listDevices() throws HMaticExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object getDeviceDescription(String address) {
+    public Object getDeviceDescription(String address) throws HMaticExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object getParamsetDescription(String address, String paramsetType) {
+    public Object getParamsetDescription(String address, String paramsetType) throws HMaticExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String getParamsetId(String address, String type) {
+    public String getParamsetId(String address, String type) throws HMaticExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object getParamset(String address, String paramsetKey) {
+    public Object getParamset(String address, String paramsetKey) throws HMaticExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void putParamset(String address, String paramsetKey, Object paramset) {
+    public void putParamset(String address, String paramsetKey, Object paramset) throws HMaticExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object getValue(String address, String valueKey) {
+    public Object getValue(String address, String valueKey) throws HMaticExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void setValue(String address, String valueKey, Object value) {
+    public void setValue(String address, String valueKey, Object value) throws HMaticExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

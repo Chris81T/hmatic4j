@@ -13,22 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j.specs;
-
-import de.chrthms.hmatic4j.rpc.exceptions.HMaticExecutionException;
+package de.chrthms.hmatic4j.rpc.exceptions;
 
 /**
  *
  * @author christian
  */
-public interface HomematicBidCosRF extends Homematic {
-    
-    Object getParamset(String address, String paramsetKey, Integer mode) throws HMaticExecutionException;
-    
-    void putParamset(String address, String paramsetKey, Object paramset, String rxMode) throws HMaticExecutionException;
+public class HMaticExecutionException extends RuntimeException {
 
-    Object getValue(String address, String valueKey, Integer mode) throws HMaticExecutionException;
+    public HMaticExecutionException(String message) {
+        super(message);
+    }
+
+    public HMaticExecutionException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public HMaticExecutionException(Throwable cause) {
+        super(cause);
+    }
     
-    void setValue(String address, String valueKey, Object value, String rxMode) throws HMaticExecutionException;
-        
 }

@@ -32,11 +32,11 @@ public class HMaticServiceBuilderImpl implements HMaticServiceBuilder {
         
         switch (mode) {
             case WIRED:
-                HMaticService<HMaticWiredConnection> wiredService = new HMaticServiceImpl<>(mode);                
+                HMaticService<HMaticWiredConnection> wiredService = new HMaticServiceImpl<>(mode, HMaticWiredConnection.class);                
                 service = wiredService;
                 break;
             case WIRELESS:
-                HMaticService<HMaticWirelessConnection> wirelessService = new HMaticServiceImpl<>(mode);                
+                HMaticService<HMaticWirelessConnection> wirelessService = new HMaticServiceImpl<>(mode, HMaticWirelessConnection.class);                
                 service = wirelessService;
                 break;
             default:

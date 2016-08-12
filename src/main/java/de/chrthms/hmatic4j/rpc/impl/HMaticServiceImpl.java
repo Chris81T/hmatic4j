@@ -18,6 +18,10 @@ package de.chrthms.hmatic4j.rpc.impl;
 import de.chrthms.hmatic4j.rpc.enums.BidCosMode;
 import de.chrthms.hmatic4j.rpc.HMaticConnection;
 import de.chrthms.hmatic4j.rpc.HMaticService;
+import de.chrthms.hmatic4j.rpc.exceptions.HMaticServiceException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,12 +36,14 @@ public class HMaticServiceImpl<T extends HMaticConnection> implements HMaticServ
     private static final String BID_COS_RF_DEFAULT_PORT = "2001";
     
     private final BidCosMode mode;
-
+    private final Class<T> connectionClass;
+    
     private String serverAddress = null;
     private String port = null;
 
-    HMaticServiceImpl(BidCosMode mode) {
+    HMaticServiceImpl(BidCosMode mode, Class<T> connectionClass) {
         this.mode = mode;
+        this.connectionClass = connectionClass;
         
         switch (mode) {
             case WIRED:
@@ -79,17 +85,36 @@ public class HMaticServiceImpl<T extends HMaticConnection> implements HMaticServ
         this.port = port;
     }
 
+    /**
+     * Will build the relevant url to establish a server connection.
+     * 
+     * Simply set as serverAddress for instance "raspberrypi" or "192.168.47.11"
+     * (adapt the address to your concrete address). The building procedure will
+     * automatically prepend the "http://". If you have configured a secured
+     * connection, so set explicitly the "https://" in your @see serverAddress.
+     * 
+     * @return concatenated URL address 
+     */
     @Override
     public String getUrl() {
-        StringBuilder builder = new StringBuilder(serverAddress);
+        StringBuilder builder = new StringBuilder();
+        
+        if (!serverAddress.startsWith("http")) builder.append("http://");        
+        builder.append(serverAddress);
         builder.append(":");
         builder.append(port);
+        
         return builder.toString();
     }
 
     @Override
-    public T getConnection() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public T getConnection() throws HMaticServiceException {
+        try {
+            return connectionClass.getDeclaredConstructor(HMaticService.class).newInstance(this);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                IllegalArgumentException| NoSuchMethodException | SecurityException e) {
+            throw new HMaticServiceException("New instantiation of connectionClass failed!", e);
+        }
     }
     
 }

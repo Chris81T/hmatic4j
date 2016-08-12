@@ -15,18 +15,20 @@
  */
 package de.chrthms.hmatic4j.specs;
 
+import de.chrthms.hmatic4j.rpc.exceptions.HMaticExecutionException;
+
 /**
  *
  * @author christian
  */
 public interface HomematicBidCosWired extends Homematic {
  
-    Object getParamset(String address, String paramsetKey);
+    Object getParamset(String address, String paramsetKey) throws HMaticExecutionException;
     
-    void putParamset(String address, String paramsetKey, Object paramset);
+    void putParamset(String address, String paramsetKey, Object paramset) throws HMaticExecutionException;
 
-    Object getValue(String address, String valueKey);
+    Object getValue(String address, String valueKey) throws HMaticExecutionException;
     
-    void setValue(String address, String valueKey, Object value);  
+    void setValue(String address, String valueKey, Object value) throws HMaticExecutionException;  
     
 }
