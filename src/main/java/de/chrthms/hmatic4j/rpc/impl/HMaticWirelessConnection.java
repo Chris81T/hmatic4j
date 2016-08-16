@@ -17,9 +17,14 @@ package de.chrthms.hmatic4j.rpc.impl;
 
 import de.chrthms.hmatic4j.rpc.HMaticConnection;
 import de.chrthms.hmatic4j.rpc.HMaticService;
+import de.chrthms.hmatic4j.rpc.commands.GetValueCmd;
+import de.chrthms.hmatic4j.rpc.commands.SetValueCmd;
 import de.chrthms.hmatic4j.rpc.exceptions.HMaticExecutionException;
-import java.util.List;
 import de.chrthms.hmatic4j.specs.HomematicBidCosRF;
+import de.chrthms.hmatic4j.specs.datatypes.ValueType;
+import de.chrthms.hmatic4j.specs.enums.RxMode;
+import de.chrthms.hmatic4j.specs.enums.ValueTypeMode;
+import java.util.Map;
 
 /**
  *
@@ -32,23 +37,51 @@ public class HMaticWirelessConnection extends AbstractConnection implements HMat
     }
 
     @Override
-    public Object getParamset(String address, String paramsetKey, Integer mode) throws HMaticExecutionException {
+    public Object getParamset(String address, String paramsetKey, ValueTypeMode mode) throws HMaticExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void putParamset(String address, String paramsetKey, Object paramset, String rxMode) throws HMaticExecutionException {
+    public void putParamset(String address, String paramsetKey, Object paramset, RxMode rxMode) throws HMaticExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object getValue(String address, String valueKey, Integer mode) throws HMaticExecutionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ValueType getValue(String address, String channel, GetValueCmd cmd) throws HMaticExecutionException {
+        return getValue(address, channel, cmd, ValueTypeMode.SIMPLE_VALUE);
+    }
+    
+    @Override
+    public ValueType getValue(String address, String channel, GetValueCmd cmd, ValueTypeMode mode) throws HMaticExecutionException {
+        
+        Object result = execute("getValue", concatAddressWithChannel(address, channel), cmd.getValueKey(), mode.getAsInt());
+        
+        ValueType valueType = new ValueType();
+        
+        switch (mode) {
+            case SIMPLE_VALUE:
+                valueType.setValue((Double) result);
+                break;
+            case STRUCT_VALUE:
+                Map<String, Object> resultMap = (Map<String, Object>) result;
+                valueType.setUndefined((Boolean) resultMap.get("UNDEFINED"));
+                valueType.setValue((Double) resultMap.get("VALUE"));
+                break;
+            default:
+                throw new HMaticExecutionException("Unhandled ValueTypeMode!");
+        }
+        
+        return valueType;
     }
 
     @Override
-    public void setValue(String address, String valueKey, Object value, String rxMode) throws HMaticExecutionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setValue(String address, String channel, SetValueCmd cmd) throws HMaticExecutionException {
+        setValue(address, channel, cmd, RxMode.BURST);
+    }
+
+    @Override
+    public void setValue(String address, String channel, SetValueCmd cmd, RxMode rxMode) throws HMaticExecutionException {
+        execute("setValue", concatAddressWithChannel(address, channel), cmd.getParam(), cmd.getValue(), rxMode.toString());
     }
     
 }

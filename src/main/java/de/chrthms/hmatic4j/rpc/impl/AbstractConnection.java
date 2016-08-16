@@ -18,11 +18,8 @@ package de.chrthms.hmatic4j.rpc.impl;
 import de.chrthms.hmatic4j.rpc.HMaticService;
 import de.chrthms.hmatic4j.rpc.exceptions.HMaticExecutionException;
 import de.chrthms.hmatic4j.specs.Homematic;
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
@@ -73,6 +70,13 @@ public class AbstractConnection implements Homematic {
             throw new HMaticExecutionException(msg.toString(), e);
         }
     }
+ 
+    protected String concatAddressWithChannel(final String address, final String channel) {
+        StringBuilder builder = new StringBuilder(address);
+        builder.append(":");
+        builder.append(channel);
+        return builder.toString();
+    }
     
     @Override
     public Object getDeviceDescription(String address) throws HMaticExecutionException {                
@@ -88,5 +92,5 @@ public class AbstractConnection implements Homematic {
     public String getParamsetId(String address, String type) throws HMaticExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }    
-    
+     
 }

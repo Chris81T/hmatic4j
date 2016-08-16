@@ -15,7 +15,12 @@
  */
 package de.chrthms.hmatic4j.specs;
 
+import de.chrthms.hmatic4j.rpc.commands.SetValueCmd;
+import de.chrthms.hmatic4j.rpc.commands.GetValueCmd;
+import de.chrthms.hmatic4j.specs.datatypes.ValueType;
 import de.chrthms.hmatic4j.rpc.exceptions.HMaticExecutionException;
+import de.chrthms.hmatic4j.specs.enums.RxMode;
+import de.chrthms.hmatic4j.specs.enums.ValueTypeMode;
 
 /**
  *
@@ -23,12 +28,14 @@ import de.chrthms.hmatic4j.rpc.exceptions.HMaticExecutionException;
  */
 public interface HomematicBidCosRF extends Homematic {
     
-    Object getParamset(String address, String paramsetKey, Integer mode) throws HMaticExecutionException;
+    Object getParamset(String address, String paramsetKey, ValueTypeMode mode) throws HMaticExecutionException;
     
-    void putParamset(String address, String paramsetKey, Object paramset, String rxMode) throws HMaticExecutionException;
+    void putParamset(String address, String paramsetKey, Object paramset, RxMode rxMode) throws HMaticExecutionException;
 
-    Object getValue(String address, String valueKey, Integer mode) throws HMaticExecutionException;
+    ValueType getValue(String address, String channel, GetValueCmd cmd) throws HMaticExecutionException;
+    ValueType getValue(String address, String channel, GetValueCmd cmd, ValueTypeMode mode) throws HMaticExecutionException;
     
-    void setValue(String address, String valueKey, Object value, String rxMode) throws HMaticExecutionException;
+    void setValue(String address, String channel, SetValueCmd cmd) throws HMaticExecutionException;
+    void setValue(String address, String channel, SetValueCmd cmd, RxMode rxMode) throws HMaticExecutionException;
         
 }
