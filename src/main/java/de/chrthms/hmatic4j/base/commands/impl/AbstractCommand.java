@@ -20,14 +20,12 @@ package de.chrthms.hmatic4j.base.commands.impl;
  *
  * @author christian
  */
-public abstract class AbstractCommand {
+public abstract class AbstractCommand<T> {
 
     public abstract void execute();
 
-    public abstract <T> T singleResult();
+    public abstract Object singleResult();
 
-    public <T> T singleResult(Class<T> resultClass) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public abstract T singleResult(Class<T> resultClass);
     
 }

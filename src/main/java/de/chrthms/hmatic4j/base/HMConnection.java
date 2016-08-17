@@ -53,7 +53,7 @@ public interface HMConnection {
      * @param <T>
      * @return the single result
      */
-    <T> T singleResult();
+    Object singleResult();
     <T> T singleResult(Class<T> resultClass);
       
 }

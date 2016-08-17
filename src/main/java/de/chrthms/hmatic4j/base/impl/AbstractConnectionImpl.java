@@ -18,6 +18,7 @@ package de.chrthms.hmatic4j.base.impl;
 import de.chrthms.backup.rpc.exceptions.HMaticExecutionException;
 import de.chrthms.hmatic4j.base.HMConnection;
 import de.chrthms.hmatic4j.base.commands.HMCommand;
+import de.chrthms.hmatic4j.base.commands.impl.AbstractCommand;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.apache.xmlrpc.client.XmlRpcClient;
@@ -98,8 +99,12 @@ public abstract class AbstractConnectionImpl implements HMConnection {
     }
 
     @Override
-    public <T> T singleResult() {
+    public Object singleResult() {
         XmlRpcClient xmlRpcClient = getXmlRpcClient();
+        AbstractCommand command = (AbstractCommand) this.command;
+        
+//        command.
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }   
     

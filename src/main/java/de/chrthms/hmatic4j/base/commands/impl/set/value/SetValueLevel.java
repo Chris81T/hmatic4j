@@ -23,7 +23,7 @@ import de.chrthms.hmatic4j.base.commands.impl.AbstractCommand;
  *
  * @author christian
  */
-public class SetValueLevel extends AbstractCommand implements HMCommand {
+public class SetValueLevel extends AbstractCommand<Double> implements HMCommand {
     
     private Double value = null;
     
@@ -38,8 +38,14 @@ public class SetValueLevel extends AbstractCommand implements HMCommand {
     }
 
     @Override
-    public <T> T singleResult() {
+    public Object singleResult() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public Double singleResult(Class<Double> resultClass) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
 }
