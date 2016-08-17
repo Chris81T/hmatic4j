@@ -15,16 +15,16 @@
  */
 package de.chrthms.hmatic4j.rpc.builder;
 
-import de.chrthms.hmatic4j.rpc.impl.HMaticServiceBuilder;
-import de.chrthms.hmatic4j.rpc.impl.HMaticServiceBuilderImpl;
-import de.chrthms.hmatic4j.rpc.enums.BidCosMode;
+import de.chrthms.backup.rpc.impl.HMaticServiceBuilder;
+import de.chrthms.backup.rpc.impl.HMaticServiceBuilderImpl;
+import de.chrthms.backup.rpc.enums.BidCosMode;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import de.chrthms.hmatic4j.rpc.HMaticService;
+import de.chrthms.backup.rpc.HMaticService;
 
 /**
  *
