@@ -15,14 +15,11 @@
  */
 package de.chrthms.hmatic4j.base.commands;
 
-import de.chrthms.hmatic4j.base.HMResult;
-
 /**
  *
  * @author christian
  */
 public interface HMCommand {
-    
     
     
     

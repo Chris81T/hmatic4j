@@ -18,6 +18,9 @@ package de.chrthms.hmatic4j.base.impl;
 import de.chrthms.hmatic4j.base.HMConfig;
 import de.chrthms.hmatic4j.base.HMService;
 import de.chrthms.hmatic4j.base.HMServiceBuilder;
+import de.chrthms.hmatic4j.base.HMWiredConnection;
+import de.chrthms.hmatic4j.base.HMWirelessConnection;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
@@ -43,6 +46,16 @@ public class HMServiceBuilderImpl implements HMServiceBuilder {
         return new HMServiceImpl(rpcServerAddress);
     }
 
+    @Override
+    public HMWiredConnection wired() {
+        return service().connection().wired();
+    }
+
+    @Override
+    public HMWirelessConnection wireless() {
+        return service().connection().wireless();
+    }
+
     private static class HMConfigImpl implements HMConfig {
 
         private String path = null;
@@ -58,12 +71,23 @@ public class HMServiceBuilderImpl implements HMServiceBuilder {
 
         @Override
         public HMService service() {
-            
+                        
             // TODO load config and set address to instantiate the Service Impl
             final String address = "";
             
             return new HMServiceImpl(address);
+        }               
+
+        @Override
+        public HMWiredConnection wired() {
+            return service().connection().wired();
         }
+
+        @Override
+        public HMWirelessConnection wireless() {
+            return service().connection().wireless();
+        }
+        
     }
     
 }

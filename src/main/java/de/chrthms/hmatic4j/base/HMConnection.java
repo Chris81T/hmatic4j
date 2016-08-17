@@ -39,7 +39,7 @@ public interface HMConnection {
      * @return 
      */
     HMConnection command(HMCommand command);
-    
+        
     /**
      * Is typically useful for "setter" commands or commands, that does not give
      * a result back.
@@ -50,8 +50,10 @@ public interface HMConnection {
      * If the the command should give a result back the the calling client, this
      * method is the right one.
      * 
+     * @param <T>
      * @return the single result
      */
-    HMResult singleResult();
-    
+    <T> T singleResult();
+    <T> T singleResult(Class<T> resultClass);
+      
 }

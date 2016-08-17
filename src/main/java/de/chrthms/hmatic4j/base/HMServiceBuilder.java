@@ -38,4 +38,16 @@ public interface HMServiceBuilder {
     
     HMService service();
     
+    /**
+     * Quick access to a wired connection.
+     * @return 
+     */
+    HMWiredConnection wired();
+    
+    /**
+     * Quick access to a wireless connection
+     * @return 
+     */
+    HMWirelessConnection wireless();
+    
 }

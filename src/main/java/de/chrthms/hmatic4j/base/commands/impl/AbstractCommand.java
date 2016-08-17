@@ -13,14 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j.base;
+
+package de.chrthms.hmatic4j.base.commands.impl;
 
 /**
  *
  * @author christian
  */
-public interface HMResult<T> {
-    
-    T getValue();
+public abstract class AbstractCommand {
+
+    public abstract void execute();
+
+    public abstract <T> T singleResult();
+
+    public <T> T singleResult(Class<T> resultClass) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

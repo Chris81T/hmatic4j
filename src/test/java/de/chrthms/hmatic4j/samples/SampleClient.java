@@ -43,6 +43,24 @@ public class SampleClient {
                 .wired()
                 .command(null)
                 .execute();
+        
+        HMaticAPI.getInstance()
+                .rpcServerAddress("127.0.0.1")
+                .wireless()
+                .command(new HMCommand() {})
+                .execute();
+        
+        HMaticAPI.getInstance()
+                .config()
+                .wireless()
+                .command(new HMCommand() {})
+                .execute();
+        
+        HMResult singleResult = HMaticAPI.getInstance()
+                .wireless()
+                .command(new HMCommand() {})
+                .singleResult();
+        
     }
     
 }
