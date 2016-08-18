@@ -23,5 +23,7 @@ import de.chrthms.hmatic4j.base.commands.impl.AbstractCommand;
  * @author christian
  */
 public abstract class AbstractSetValue extends AbstractCommand {
+   
+    protected static final String METHOD_NAME = "setValue";
     
 }

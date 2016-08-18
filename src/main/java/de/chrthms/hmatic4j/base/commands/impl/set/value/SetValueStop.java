@@ -28,14 +28,16 @@ import de.chrthms.hmatic4j.base.impl.HMWirelessConnectionImpl;
  */
 public class SetValueStop extends AbstractSetValue implements HMCommand {
     
+    private static final String VALUE_KEY = "STOP";
+    
     @Override
     public void execute(AbstractConnectionImpl connection) throws HMUnsupportedException, HMExecutionException {
 
         if (connection.isWireless()) {
             HMWirelessConnectionImpl wirelessConnection = connection.castToWirelessImpl();
-            connection.execute("setValue", "STOP", concatAddressWithChannel(), true, wirelessConnection.getRxMode());
+            connection.execute(METHOD_NAME, VALUE_KEY, concatAddressWithChannel(), true, wirelessConnection.getRxMode());
         } else {
-            connection.execute("setValue", "STOP", concatAddressWithChannel(), true);            
+            connection.execute(METHOD_NAME, VALUE_KEY, concatAddressWithChannel(), true);            
         }
 
     }
