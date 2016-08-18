@@ -20,7 +20,6 @@ import de.chrthms.hmatic4j.base.HMService;
 import de.chrthms.hmatic4j.base.HMServiceBuilder;
 import de.chrthms.hmatic4j.base.HMWiredConnection;
 import de.chrthms.hmatic4j.base.HMWirelessConnection;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *

@@ -13,15 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j.base.commands;
+
+package de.chrthms.hmatic4j.base.exceptions;
 
 /**
  *
  * @author christian
  */
-public interface HMCommand {
+public class HMExecutionException extends RuntimeException {
 
-    HMCommand deviceAddress(String deviceAddress);
-    HMCommand deviceChannel(String deviceChannel);
+    public HMExecutionException(String message) {
+        super(message);
+    }
+
+    public HMExecutionException(String message, Throwable cause) {
+        super(message, cause);
+    }
     
 }

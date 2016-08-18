@@ -22,7 +22,7 @@ import de.chrthms.hmatic4j.base.HMWiredConnection;
  *
  * @author christian
  */
-class HMWiredConnectionImpl extends AbstractConnectionImpl implements HMWiredConnection {
+public class HMWiredConnectionImpl extends AbstractConnectionImpl implements HMWiredConnection {
 
     private static final String PORT = "2000";
     

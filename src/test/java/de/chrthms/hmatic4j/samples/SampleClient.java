@@ -17,6 +17,8 @@ package de.chrthms.hmatic4j.samples;
 
 import de.chrthms.hmatic4j.base.commands.HMCommand;
 import de.chrthms.hmatic4j.HMaticAPI;
+import de.chrthms.hmatic4j.base.commands.enums.RxMode;
+import de.chrthms.hmatic4j.base.commands.impl.set.value.SetValueStop;
 
 /**
  *
@@ -31,7 +33,7 @@ public class SampleClient {
                 .service()
                 .connection()
                 .wireless()
-                .command(new HMCommand() {})
+                .command(null)
                 .singleResult();
         
         HMaticAPI.getInstance()
@@ -46,18 +48,21 @@ public class SampleClient {
         HMaticAPI.getInstance()
                 .rpcServerAddress("127.0.0.1")
                 .wireless()
-                .command(new HMCommand() {})
+                .command(null)
                 .execute();
         
         HMaticAPI.getInstance()
                 .config()
                 .wireless()
-                .command(new HMCommand() {})
+                .rxMode(RxMode.BURST)
+                .command(new SetValueStop()
+                    .deviceAddress("abcdef1234567")
+                    .deviceChannel("1"))
                 .execute();
         
         Double singleResult = HMaticAPI.getInstance()
                 .wireless()
-                .command(new HMCommand() {})
+                .command(null)
                 .singleResult(Double.class);
         
     }

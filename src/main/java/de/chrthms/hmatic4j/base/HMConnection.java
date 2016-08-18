@@ -16,7 +16,7 @@
 package de.chrthms.hmatic4j.base;
 
 import de.chrthms.hmatic4j.base.commands.HMCommand;
-import de.chrthms.hmatic4j.base.exceptions.HMCommandException;
+import de.chrthms.hmatic4j.base.exceptions.HMExecutionException;
 import de.chrthms.hmatic4j.base.exceptions.HMConnectionException;
 import de.chrthms.hmatic4j.base.exceptions.HMUnsupportedException;
 
@@ -51,9 +51,9 @@ public interface HMConnection {
      * @throws HMUnsupportedException when command does not provide invoked
      *         execution method. For instance the command does not return a value
      *         and the client has invoked one of the singleResult methods.
-     * @throws HMCommandException when the command execution will fail.
+     * @throws HMExecutionException when the command execution will fail.
      */
-    void execute() throws HMConnectionException, HMUnsupportedException, HMCommandException;
+    void execute() throws HMConnectionException, HMUnsupportedException, HMExecutionException;
     
     /**
      * If the the command should give a result back the the calling client, this
@@ -65,9 +65,9 @@ public interface HMConnection {
      * @throws HMUnsupportedException when command does not provide invoked
      *         execution method. For instance the command does not return a value
      *         and the client has invoked one of the singleResult methods.
-     * @throws HMCommandException when the command execution will fail.
+     * @throws HMExecutionException when the command execution will fail.
      */
-    Object singleResult() throws HMConnectionException, HMUnsupportedException, HMCommandException;
+    Object singleResult() throws HMConnectionException, HMUnsupportedException, HMExecutionException;
     
     /**
      * If the the command should give a result back the the calling client, this
@@ -81,8 +81,8 @@ public interface HMConnection {
      * @throws HMUnsupportedException when command does not provide invoked
      *         execution method. For instance the command does not return a value
      *         and the client has invoked one of the singleResult methods.
-     * @throws HMCommandException when the command execution will fail.
+     * @throws HMExecutionException when the command execution will fail.
      */
-    <T> T singleResult(Class<T> resultClass) throws HMConnectionException, HMUnsupportedException, HMCommandException;
+    <T> T singleResult(Class<T> resultClass) throws HMConnectionException, HMUnsupportedException, HMExecutionException;
       
 }

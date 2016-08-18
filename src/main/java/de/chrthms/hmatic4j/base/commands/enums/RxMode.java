@@ -13,21 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package de.chrthms.hmatic4j.base.exceptions;
+package de.chrthms.hmatic4j.base.commands.enums;
 
 /**
  *
  * @author christian
  */
-public class HMCommandException extends RuntimeException {
-
-    public HMCommandException(String message) {
-        super(message);
-    }
-
-    public HMCommandException(String message, Throwable cause) {
-        super(message, cause);
-    }
+public enum RxMode {
+    
+    BURST,
+    WAKEUP
     
 }

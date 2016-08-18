@@ -15,10 +15,20 @@
  */
 package de.chrthms.hmatic4j.base;
 
+import de.chrthms.hmatic4j.base.commands.enums.RxMode;
+
 /**
  *
  * @author christian
  */
 public interface HMWirelessConnection extends HMConnection {
+ 
+    /**
+     * The default mode is BURST.
+     * 
+     * @param mode
+     * @return 
+     */
+    HMWirelessConnection rxMode(RxMode mode);
     
 }

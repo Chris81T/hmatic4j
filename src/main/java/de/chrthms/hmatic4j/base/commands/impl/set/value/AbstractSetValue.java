@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j.base.commands;
+
+package de.chrthms.hmatic4j.base.commands.impl.set.value;
+
+import de.chrthms.hmatic4j.base.commands.impl.AbstractCommand;
 
 /**
  *
  * @author christian
  */
-public interface HMCommand {
-
-    HMCommand deviceAddress(String deviceAddress);
-    HMCommand deviceChannel(String deviceChannel);
+public abstract class AbstractSetValue extends AbstractCommand {
     
 }

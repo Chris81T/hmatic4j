@@ -18,11 +18,12 @@ package de.chrthms.hmatic4j.base.impl;
 import de.chrthms.hmatic4j.base.HMConnection;
 import de.chrthms.hmatic4j.base.commands.HMCommand;
 import de.chrthms.hmatic4j.base.commands.impl.AbstractCommand;
-import de.chrthms.hmatic4j.base.exceptions.HMCommandException;
+import de.chrthms.hmatic4j.base.exceptions.HMExecutionException;
 import de.chrthms.hmatic4j.base.exceptions.HMConnectionException;
 import de.chrthms.hmatic4j.base.exceptions.HMUnsupportedException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
@@ -89,6 +90,32 @@ public abstract class AbstractConnectionImpl implements HMConnection {
         return (AbstractCommand) command;
     }
     
+    public Object execute(final String methodName, Object... params) throws HMExecutionException {
+        try {
+            return getXmlRpcClient().execute(methodName, params);
+        } catch (XmlRpcException e) {
+            throw new HMExecutionException("Could not perform xml-rpc execution!", e);
+        }
+    }
+
+    public boolean isWired() {
+        return (this instanceof HMWiredConnectionImpl);
+    }
+    
+    public boolean isWireless() {
+        return (this instanceof HMWirelessConnectionImpl);
+    }
+
+    public HMWiredConnectionImpl castToWiredImpl() throws HMConnectionException {
+        if (isWireless()) throw new HMConnectionException("This instance is not a wired connection implementation!");
+        return (HMWiredConnectionImpl) this;
+    }
+    
+    public HMWirelessConnectionImpl castToWirelessImpl() throws HMConnectionException {
+        if (isWired()) throw new HMConnectionException("This instance is not a wireless connection implementation!");
+        return (HMWirelessConnectionImpl) this;
+    }
+    
     @Override
     public HMConnection port(String port) {
         this.port = port;
@@ -102,18 +129,18 @@ public abstract class AbstractConnectionImpl implements HMConnection {
     }
     
     @Override
-    public void execute() throws HMConnectionException, HMUnsupportedException, HMCommandException {
-        castCommand().execute(getXmlRpcClient());
+    public void execute() throws HMConnectionException, HMUnsupportedException, HMExecutionException {
+        castCommand().execute(this);
     }
 
     @Override
-    public Object singleResult() throws HMConnectionException, HMUnsupportedException, HMCommandException {
-        return castCommand().singleResult(getXmlRpcClient());
+    public Object singleResult() throws HMConnectionException, HMUnsupportedException, HMExecutionException {
+        return castCommand().singleResult(this);
     }   
     
     @Override
-    public <T> T singleResult(Class<T> resultClass) throws HMConnectionException, HMUnsupportedException, HMCommandException {
-        return castCommand().singleResult(getXmlRpcClient(), resultClass);
+    public <T> T singleResult(Class<T> resultClass) throws HMConnectionException, HMUnsupportedException, HMExecutionException {
+        return castCommand().singleResult(this, resultClass);
     }   
     
 }

@@ -20,23 +20,24 @@ import de.chrthms.hmatic4j.base.commands.HMCommand;
 import de.chrthms.hmatic4j.base.exceptions.HMExecutionException;
 import de.chrthms.hmatic4j.base.exceptions.HMUnsupportedException;
 import de.chrthms.hmatic4j.base.impl.AbstractConnectionImpl;
+import de.chrthms.hmatic4j.base.impl.HMWirelessConnectionImpl;
 
 /**
  *
  * @author christian
  */
-public class SetValueLevel extends AbstractSetValue implements HMCommand {
+public class SetValueStop extends AbstractSetValue implements HMCommand {
     
-    private Double value = null;
-    
-    public SetValueLevel value(Double value) {
-        this.value = value;
-        return this;
-    }
-
     @Override
     public void execute(AbstractConnectionImpl connection) throws HMUnsupportedException, HMExecutionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        if (connection.isWireless()) {
+            HMWirelessConnectionImpl wirelessConnection = connection.castToWirelessImpl();
+            connection.execute("setValue", "STOP", concatAddressWithChannel(), true, wirelessConnection.getRxMode());
+        } else {
+            connection.execute("setValue", "STOP", concatAddressWithChannel(), true);            
+        }
+
     }
 
     @Override

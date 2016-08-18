@@ -16,17 +16,30 @@
 package de.chrthms.hmatic4j.base.impl;
 
 import de.chrthms.hmatic4j.base.HMWirelessConnection;
+import de.chrthms.hmatic4j.base.commands.enums.RxMode;
 
 /**
  *
  * @author christian
  */
-class HMWirelessConnectionImpl extends AbstractConnectionImpl implements HMWirelessConnection {
+public class HMWirelessConnectionImpl extends AbstractConnectionImpl implements HMWirelessConnection {
 
     private static final String PORT = "2001";
     
+    private RxMode mode = RxMode.BURST;
+    
     public HMWirelessConnectionImpl(HMServiceImpl service) {
         super(service, PORT);
+    }
+
+    public RxMode getRxMode() {
+        return mode;
+    }
+    
+    @Override
+    public HMWirelessConnection rxMode(RxMode mode) {
+        this.mode = mode;
+        return this;
     }
     
 }

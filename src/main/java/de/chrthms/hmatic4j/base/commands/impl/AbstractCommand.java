@@ -17,9 +17,9 @@
 package de.chrthms.hmatic4j.base.commands.impl;
 
 import de.chrthms.hmatic4j.base.commands.HMCommand;
-import de.chrthms.hmatic4j.base.exceptions.HMCommandException;
+import de.chrthms.hmatic4j.base.exceptions.HMExecutionException;
 import de.chrthms.hmatic4j.base.exceptions.HMUnsupportedException;
-import org.apache.xmlrpc.client.XmlRpcClient;
+import de.chrthms.hmatic4j.base.impl.AbstractConnectionImpl;
 
 /**
  *
@@ -27,10 +27,33 @@ import org.apache.xmlrpc.client.XmlRpcClient;
  */
 public abstract class AbstractCommand implements HMCommand {
 
-    public abstract void execute(XmlRpcClient rpcClient) throws HMUnsupportedException, HMCommandException;
+    protected String deviceAddress = null;
+    protected String deviceChannel = null;
+    
+    public abstract void execute(AbstractConnectionImpl connection) throws HMUnsupportedException, HMExecutionException;
 
-    public abstract Object singleResult(XmlRpcClient rpcClient) throws HMUnsupportedException, HMCommandException;
+    public abstract Object singleResult(AbstractConnectionImpl connection) throws HMUnsupportedException, HMExecutionException;
 
-    public abstract <T> T singleResult(XmlRpcClient rpcClient, Class<T> resultClass) throws HMUnsupportedException, HMCommandException;
+    public abstract <T> T singleResult(AbstractConnectionImpl connection, Class<T> resultClass) throws HMUnsupportedException, HMExecutionException;
+
+    protected String concatAddressWithChannel() {
+        return new StringBuilder()
+                .append(deviceAddress)
+                .append(":")
+                .append(deviceChannel)
+                .toString();
+    }
+    
+    @Override
+    public HMCommand deviceAddress(String deviceAddress) {
+        this.deviceAddress = deviceAddress;
+        return this;
+    }
+
+    @Override
+    public HMCommand deviceChannel(String deviceChannel) {
+        this.deviceChannel = deviceChannel;
+        return this;
+    }
     
 }
