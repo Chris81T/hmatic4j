@@ -16,6 +16,9 @@
 package de.chrthms.hmatic4j.base;
 
 import de.chrthms.hmatic4j.base.commands.HMCommand;
+import de.chrthms.hmatic4j.base.exceptions.HMCommandException;
+import de.chrthms.hmatic4j.base.exceptions.HMConnectionException;
+import de.chrthms.hmatic4j.base.exceptions.HMUnsupportedException;
 
 /**
  *
@@ -43,17 +46,43 @@ public interface HMConnection {
     /**
      * Is typically useful for "setter" commands or commands, that does not give
      * a result back.
+     * @throws HMConnectionException when connection can not be established or an
+     *         invalid command is given.
+     * @throws HMUnsupportedException when command does not provide invoked
+     *         execution method. For instance the command does not return a value
+     *         and the client has invoked one of the singleResult methods.
+     * @throws HMCommandException when the command execution will fail.
      */
-    void execute();
+    void execute() throws HMConnectionException, HMUnsupportedException, HMCommandException;
+    
+    /**
+     * If the the command should give a result back the the calling client, this
+     * method is the right one.
+     * 
+     * @return the single result an untyped result
+     * @throws HMConnectionException when connection can not be established or an
+     *         invalid command is given.
+     * @throws HMUnsupportedException when command does not provide invoked
+     *         execution method. For instance the command does not return a value
+     *         and the client has invoked one of the singleResult methods.
+     * @throws HMCommandException when the command execution will fail.
+     */
+    Object singleResult() throws HMConnectionException, HMUnsupportedException, HMCommandException;
     
     /**
      * If the the command should give a result back the the calling client, this
      * method is the right one.
      * 
      * @param <T>
-     * @return the single result
+     * @param resultClass is relevant for a typed result to make the cast obsolete
+     * @return the single result a typed result
+     * @throws HMConnectionException when connection can not be established or an
+     *         invalid command is given.
+     * @throws HMUnsupportedException when command does not provide invoked
+     *         execution method. For instance the command does not return a value
+     *         and the client has invoked one of the singleResult methods.
+     * @throws HMCommandException when the command execution will fail.
      */
-    Object singleResult();
-    <T> T singleResult(Class<T> resultClass);
+    <T> T singleResult(Class<T> resultClass) throws HMConnectionException, HMUnsupportedException, HMCommandException;
       
 }

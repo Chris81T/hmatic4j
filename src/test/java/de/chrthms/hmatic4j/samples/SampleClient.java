@@ -15,9 +15,8 @@
  */
 package de.chrthms.hmatic4j.samples;
 
-import de.chrthms.hmatic4j.HMaticAPI;
-import de.chrthms.hmatic4j.base.HMResult;
 import de.chrthms.hmatic4j.base.commands.HMCommand;
+import de.chrthms.hmatic4j.HMaticAPI;
 
 /**
  *
@@ -27,7 +26,7 @@ public class SampleClient {
     
     public static void main(String... args) {
         
-        HMResult result = HMaticAPI.getInstance()
+        Object result = HMaticAPI.getInstance()
                 .rpcServerAddress("127.0.0.1")
                 .service()
                 .connection()
@@ -56,10 +55,10 @@ public class SampleClient {
                 .command(new HMCommand() {})
                 .execute();
         
-        HMResult singleResult = HMaticAPI.getInstance()
+        Double singleResult = HMaticAPI.getInstance()
                 .wireless()
                 .command(new HMCommand() {})
-                .singleResult();
+                .singleResult(Double.class);
         
     }
     

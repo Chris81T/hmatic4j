@@ -18,12 +18,15 @@ package de.chrthms.hmatic4j.base.commands.impl.set.value;
 
 import de.chrthms.hmatic4j.base.commands.HMCommand;
 import de.chrthms.hmatic4j.base.commands.impl.AbstractCommand;
+import de.chrthms.hmatic4j.base.exceptions.HMCommandException;
+import de.chrthms.hmatic4j.base.exceptions.HMUnsupportedException;
+import org.apache.xmlrpc.client.XmlRpcClient;
 
 /**
  *
  * @author christian
  */
-public class SetValueLevel extends AbstractCommand<Double> implements HMCommand {
+public class SetValueLevel extends AbstractCommand implements HMCommand {
     
     private Double value = null;
     
@@ -33,17 +36,17 @@ public class SetValueLevel extends AbstractCommand<Double> implements HMCommand 
     }
 
     @Override
-    public void execute() {
+    public void execute(XmlRpcClient rpcClient) throws HMUnsupportedException, HMCommandException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object singleResult() {
+    public Object singleResult(XmlRpcClient rpcClient) throws HMUnsupportedException, HMCommandException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Double singleResult(Class<Double> resultClass) {
+    public <T> T singleResult(XmlRpcClient rpcClient, Class<T> resultClass) throws HMUnsupportedException, HMCommandException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

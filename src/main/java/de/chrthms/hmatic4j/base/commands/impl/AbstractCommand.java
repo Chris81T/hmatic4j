@@ -16,16 +16,21 @@
 
 package de.chrthms.hmatic4j.base.commands.impl;
 
+import de.chrthms.hmatic4j.base.commands.HMCommand;
+import de.chrthms.hmatic4j.base.exceptions.HMCommandException;
+import de.chrthms.hmatic4j.base.exceptions.HMUnsupportedException;
+import org.apache.xmlrpc.client.XmlRpcClient;
+
 /**
  *
  * @author christian
  */
-public abstract class AbstractCommand<T> {
+public abstract class AbstractCommand implements HMCommand {
 
-    public abstract void execute();
+    public abstract void execute(XmlRpcClient rpcClient) throws HMUnsupportedException, HMCommandException;
 
-    public abstract Object singleResult();
+    public abstract Object singleResult(XmlRpcClient rpcClient) throws HMUnsupportedException, HMCommandException;
 
-    public abstract T singleResult(Class<T> resultClass);
+    public abstract <T> T singleResult(XmlRpcClient rpcClient, Class<T> resultClass) throws HMUnsupportedException, HMCommandException;
     
 }

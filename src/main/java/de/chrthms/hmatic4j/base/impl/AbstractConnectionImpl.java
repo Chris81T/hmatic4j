@@ -15,10 +15,12 @@
  */
 package de.chrthms.hmatic4j.base.impl;
 
-import de.chrthms.backup.rpc.exceptions.HMaticExecutionException;
 import de.chrthms.hmatic4j.base.HMConnection;
 import de.chrthms.hmatic4j.base.commands.HMCommand;
 import de.chrthms.hmatic4j.base.commands.impl.AbstractCommand;
+import de.chrthms.hmatic4j.base.exceptions.HMCommandException;
+import de.chrthms.hmatic4j.base.exceptions.HMConnectionException;
+import de.chrthms.hmatic4j.base.exceptions.HMUnsupportedException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.apache.xmlrpc.client.XmlRpcClient;
@@ -61,7 +63,7 @@ public abstract class AbstractConnectionImpl implements HMConnection {
      * 
      * @return the xmlRpcClient instance 
      */
-    private XmlRpcClient getXmlRpcClient() {
+    private XmlRpcClient getXmlRpcClient() throws HMConnectionException {
         if (xmlRpcClient == null) {
             
             final String url = getUrl();
@@ -70,7 +72,7 @@ public abstract class AbstractConnectionImpl implements HMConnection {
                 xmlRpcConfig = new XmlRpcClientConfigImpl();
                 xmlRpcConfig.setServerURL(new URL(url));
             } catch (MalformedURLException e) {
-                throw new HMaticExecutionException("Invalid/malformed given url = " + url, e);
+                throw new HMConnectionException("Invalid/malformed given url = " + url, e);
             }
             
             xmlRpcClient = new XmlRpcClient();
@@ -78,6 +80,13 @@ public abstract class AbstractConnectionImpl implements HMConnection {
         }
         
         return xmlRpcClient;        
+    }
+
+    private AbstractCommand castCommand() throws HMConnectionException {
+        if (!(command instanceof AbstractCommand)) {
+            throw new HMConnectionException("Command does not extend AbstractCommand! Class name = " + command.getClass().getSimpleName());
+        }
+        return (AbstractCommand) command;
     }
     
     @Override
@@ -91,27 +100,20 @@ public abstract class AbstractConnectionImpl implements HMConnection {
         this.command = command;
         return this;
     }
-
+    
     @Override
-    public void execute() {
-        XmlRpcClient xmlRpcClient = getXmlRpcClient();
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void execute() throws HMConnectionException, HMUnsupportedException, HMCommandException {
+        castCommand().execute(getXmlRpcClient());
     }
 
     @Override
-    public Object singleResult() {
-        XmlRpcClient xmlRpcClient = getXmlRpcClient();
-        AbstractCommand command = (AbstractCommand) this.command;
-        
-//        command.
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object singleResult() throws HMConnectionException, HMUnsupportedException, HMCommandException {
+        return castCommand().singleResult(getXmlRpcClient());
     }   
     
     @Override
-    public <T> T singleResult(Class<T> resultClass) {
-        XmlRpcClient xmlRpcClient = getXmlRpcClient();
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public <T> T singleResult(Class<T> resultClass) throws HMConnectionException, HMUnsupportedException, HMCommandException {
+        return castCommand().singleResult(getXmlRpcClient(), resultClass);
     }   
     
 }

@@ -13,14 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j.base;
+
+package de.chrthms.hmatic4j.base.exceptions;
 
 /**
  *
  * @author christian
  */
-public interface HMResult<T> {
-    
-    T getValue();
+public class HMConnectionException extends RuntimeException {
+
+    public HMConnectionException(String message) {
+        super(message);
+    }
+
+    public HMConnectionException(String message, Throwable cause) {
+        super(message, cause);
+    }
     
 }
