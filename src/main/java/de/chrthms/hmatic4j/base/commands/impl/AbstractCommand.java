@@ -34,8 +34,8 @@ public abstract class AbstractCommand implements HMCommand {
 
     public abstract Object singleResult(AbstractConnectionImpl connection) throws HMUnsupportedException, HMExecutionException;
 
-    public abstract <T> T singleResult(AbstractConnectionImpl connection, Class<T> resultClass) throws HMUnsupportedException, HMExecutionException;
-
+    protected abstract String getMethodName();
+    
     protected String concatAddressWithChannel() {
         return new StringBuilder()
                 .append(deviceAddress)

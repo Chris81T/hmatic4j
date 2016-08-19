@@ -14,31 +14,14 @@
  * limitations under the License.
  */
 
-package de.chrthms.hmatic4j.base.commands.impl.set.value;
-
-import de.chrthms.hmatic4j.base.commands.HMCommand;
+package de.chrthms.hmatic4j.base.commands.impl;
 
 /**
  *
  * @author christian
  */
-public class SetValueLevel extends AbstractSetValue<Double> implements HMCommand {
-    
-    private Double value = null;
-    
-    public SetValueLevel value(Double value) {
-        this.value = value;
-        return this;
-    }
+public abstract class AbstractResultCommand<T> extends AbstractCommand {
 
-    @Override
-    protected String getValueKey() {
-        return "LEVEL";
-    }
+    public abstract Class<T> getExpectedClass();
 
-    @Override
-    protected Double getValue() {
-        return value;
-    }
-    
 }

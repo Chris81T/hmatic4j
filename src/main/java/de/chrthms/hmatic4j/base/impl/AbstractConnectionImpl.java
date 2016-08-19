@@ -18,6 +18,7 @@ package de.chrthms.hmatic4j.base.impl;
 import de.chrthms.hmatic4j.base.HMConnection;
 import de.chrthms.hmatic4j.base.commands.HMCommand;
 import de.chrthms.hmatic4j.base.commands.impl.AbstractCommand;
+import de.chrthms.hmatic4j.base.commands.impl.AbstractResultCommand;
 import de.chrthms.hmatic4j.base.exceptions.HMExecutionException;
 import de.chrthms.hmatic4j.base.exceptions.HMConnectionException;
 import de.chrthms.hmatic4j.base.exceptions.HMUnsupportedException;
@@ -90,6 +91,13 @@ public abstract class AbstractConnectionImpl implements HMConnection {
         return (AbstractCommand) command;
     }
     
+    private AbstractResultCommand<?> castResultCommand() throws HMConnectionException {
+        if (!(command instanceof AbstractResultCommand)) {
+            throw new HMConnectionException("Command does not extend AbstractResultCommand! Class name = " + command.getClass().getSimpleName());
+        }
+        return (AbstractResultCommand) command;
+    }
+    
     public Object execute(final String methodName, Object... params) throws HMExecutionException {
         try {
             return getXmlRpcClient().execute(methodName, params);
@@ -140,7 +148,20 @@ public abstract class AbstractConnectionImpl implements HMConnection {
     
     @Override
     public <T> T singleResult(Class<T> resultClass) throws HMConnectionException, HMUnsupportedException, HMExecutionException {
-        return castCommand().singleResult(this, resultClass);
+        Object result = singleResult();
+        
+        final Class<?> expectedClass = castResultCommand().getExpectedClass();
+        
+        if (!resultClass.equals(expectedClass) ||
+            !resultClass.isInstance(result)) {
+            throw new HMExecutionException("Type checkup failed! expectedClass = " + 
+                    expectedClass.getSimpleName() +
+                    ", resultClass given as parameter = " +
+                    resultClass.getSimpleName() +
+                    ", class of given result = " + result.getClass().getSimpleName());
+        }
+        
+        return (T) result;
     }   
     
 }

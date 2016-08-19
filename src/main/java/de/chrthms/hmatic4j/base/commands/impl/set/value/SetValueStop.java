@@ -17,40 +17,21 @@
 package de.chrthms.hmatic4j.base.commands.impl.set.value;
 
 import de.chrthms.hmatic4j.base.commands.HMCommand;
-import de.chrthms.hmatic4j.base.exceptions.HMExecutionException;
-import de.chrthms.hmatic4j.base.exceptions.HMUnsupportedException;
-import de.chrthms.hmatic4j.base.impl.AbstractConnectionImpl;
-import de.chrthms.hmatic4j.base.impl.HMWirelessConnectionImpl;
 
 /**
  *
  * @author christian
  */
-public class SetValueStop extends AbstractSetValue implements HMCommand {
-    
-    private static final String VALUE_KEY = "STOP";
+public class SetValueStop extends AbstractSetValue<Boolean> implements HMCommand {
     
     @Override
-    public void execute(AbstractConnectionImpl connection) throws HMUnsupportedException, HMExecutionException {
-
-        if (connection.isWireless()) {
-            HMWirelessConnectionImpl wirelessConnection = connection.castToWirelessImpl();
-            connection.execute(METHOD_NAME, VALUE_KEY, concatAddressWithChannel(), true, wirelessConnection.getRxMode());
-        } else {
-            connection.execute(METHOD_NAME, VALUE_KEY, concatAddressWithChannel(), true);            
-        }
-
+    protected String getValueKey() {
+        return "STOP";
     }
 
     @Override
-    public Object singleResult(AbstractConnectionImpl connection) throws HMUnsupportedException, HMExecutionException {
-        throw new HMUnsupportedException();
+    protected Boolean getValue() {
+        return true;
     }
-
-    @Override
-    public <T> T singleResult(AbstractConnectionImpl connection, Class<T> resultClass) throws HMUnsupportedException, HMExecutionException {
-        throw new HMUnsupportedException();
-    }
-
     
 }

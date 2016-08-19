@@ -14,45 +14,37 @@
  * limitations under the License.
  */
 
-package de.chrthms.hmatic4j.base.commands.impl.set.value;
+package de.chrthms.hmatic4j.base.commands.impl.get.value;
 
-import de.chrthms.hmatic4j.base.commands.impl.AbstractCommand;
+import de.chrthms.hmatic4j.base.commands.HMCommand;
 import de.chrthms.hmatic4j.base.exceptions.HMExecutionException;
 import de.chrthms.hmatic4j.base.exceptions.HMUnsupportedException;
 import de.chrthms.hmatic4j.base.impl.AbstractConnectionImpl;
-import de.chrthms.hmatic4j.base.impl.HMWirelessConnectionImpl;
 
 /**
  *
  * @author christian
- * @param <T> is relevant for the concrete SetValue class.
  */
-public abstract class AbstractSetValue<T> extends AbstractCommand {
-   
-    abstract protected String getValueKey();
+public class GetValueLevel extends AbstractGetValue<Double> implements HMCommand {
 
-    abstract protected T getValue();
-    
     @Override
-    protected String getMethodName() {
-        return "setValue";
+    public Class<Double> getExpectedClass() {
+        return Double.class;
+    }
+
+    @Override
+    protected String getValueKey() {
+        return "LEVEL";
     }
     
     @Override
     public void execute(AbstractConnectionImpl connection) throws HMUnsupportedException, HMExecutionException {
-
-        if (connection.isWireless()) {
-            HMWirelessConnectionImpl wirelessConnection = connection.castToWirelessImpl();
-            connection.execute(getMethodName(), getValueKey(), concatAddressWithChannel(), getValue(), wirelessConnection.getRxMode());
-        } else {
-            connection.execute(getMethodName(), getValueKey(), concatAddressWithChannel(), getValue());            
-        }
-
+        throw new HMUnsupportedException();
     }
 
     @Override
     public Object singleResult(AbstractConnectionImpl connection) throws HMUnsupportedException, HMExecutionException {
-        throw new HMUnsupportedException();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
