@@ -43,9 +43,9 @@ public abstract class AbstractSetValue<T> extends AbstractCommand {
 
         if (connection.isWireless()) {
             HMWirelessConnectionImpl wirelessConnection = connection.castToWirelessImpl();
-            connection.execute(getMethodName(), getValueKey(), concatAddressWithChannel(), getValue(), wirelessConnection.getRxMode());
+            connection.execute(getMethodName(), concatAddressWithChannel(), getValueKey(), getValue(), wirelessConnection.getRxMode().toString());
         } else {
-            connection.execute(getMethodName(), getValueKey(), concatAddressWithChannel(), getValue());            
+            connection.execute(getMethodName(), concatAddressWithChannel(), getValueKey(), getValue());            
         }
 
     }

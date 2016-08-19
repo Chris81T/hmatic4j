@@ -148,15 +148,23 @@ public abstract class AbstractConnectionImpl implements HMConnection {
     
     @Override
     public <T> T singleResult(Class<T> resultClass) throws HMConnectionException, HMUnsupportedException, HMExecutionException {
+        
+        /**
+         * Before invoking the rpc call, first compare commands expected class with
+         * the given one as a parameter.
+         */
+        final Class<?> expectedClass = castResultCommand().getExpectedClass();
+        if (!resultClass.equals(expectedClass)) {
+            throw new HMExecutionException("Type checkup failed! ExpectedClass = " + 
+                    expectedClass.getSimpleName() +
+                    " is not equal to resultClass given as parameter = " +
+                    resultClass.getSimpleName());            
+        }
+        
         Object result = singleResult();
         
-        final Class<?> expectedClass = castResultCommand().getExpectedClass();
-        
-        if (!resultClass.equals(expectedClass) ||
-            !resultClass.isInstance(result)) {
-            throw new HMExecutionException("Type checkup failed! expectedClass = " + 
-                    expectedClass.getSimpleName() +
-                    ", resultClass given as parameter = " +
+        if (!resultClass.isInstance(result)) {
+            throw new HMExecutionException("Type checkup failed! Result is not an instance of resultClass given as parameter = " +
                     resultClass.getSimpleName() +
                     ", class of given result = " + result.getClass().getSimpleName());
         }
