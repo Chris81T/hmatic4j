@@ -13,19 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j;
+package de.chrthms.hmatic4j.core.impl;
 
-import de.chrthms.hmatic4j.core.HMServiceBuilder;
-import de.chrthms.hmatic4j.core.impl.HMServiceBuilderImpl;
+import de.chrthms.hmatic4j.core.HMConnectionBuilder;
+import de.chrthms.hmatic4j.core.HMService;
 
 /**
  *
  * @author christian
  */
-public interface HMaticAPI {
+class HMServiceImpl implements HMService {
+
+    private final String rpcServerAddress;
     
-    static HMServiceBuilder getInstance() {
-        return new HMServiceBuilderImpl();
+    public HMServiceImpl(String rpcServerAddress) {
+        this.rpcServerAddress = rpcServerAddress;
+    }
+
+    @Override
+    public HMConnectionBuilder connection() {
+        return new HMConnectionBuilderImpl(this);
+    }
+
+    public String getRpcServerAddress() {
+        return rpcServerAddress;
     }
     
 }

@@ -15,10 +15,10 @@
  */
 package de.chrthms.hmatic4j.samples;
 
-import de.chrthms.hmatic4j.base.commands.HMCommand;
+import de.chrthms.hmatic4j.core.commands.HMCommand;
 import de.chrthms.hmatic4j.HMaticAPI;
-import de.chrthms.hmatic4j.base.commands.enums.RxMode;
-import de.chrthms.hmatic4j.base.commands.impl.set.value.SetValueStop;
+import de.chrthms.hmatic4j.core.commands.enums.RxMode;
+import de.chrthms.hmatic4j.core.commands.impl.set.value.SetValueStop;
 
 /**
  *

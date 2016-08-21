@@ -13,19 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j;
+package de.chrthms.hmatic4j.core.impl;
 
-import de.chrthms.hmatic4j.core.HMServiceBuilder;
-import de.chrthms.hmatic4j.core.impl.HMServiceBuilderImpl;
+import de.chrthms.hmatic4j.core.HMConnectionBuilder;
+import de.chrthms.hmatic4j.core.HMWiredConnection;
+import de.chrthms.hmatic4j.core.HMWirelessConnection;
 
 /**
  *
  * @author christian
  */
-public interface HMaticAPI {
+class HMConnectionBuilderImpl implements HMConnectionBuilder {
+
+    private final HMServiceImpl service;
     
-    static HMServiceBuilder getInstance() {
-        return new HMServiceBuilderImpl();
+    public HMConnectionBuilderImpl(HMServiceImpl service) {
+        this.service = service;
+    }
+
+    @Override
+    public HMWiredConnection wired() {
+        return new HMWiredConnectionImpl(service);
+    }
+
+    @Override
+    public HMWirelessConnection wireless() {
+        return new HMWirelessConnectionImpl(service);
     }
     
 }

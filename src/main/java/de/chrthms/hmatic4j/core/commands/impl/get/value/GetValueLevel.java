@@ -13,19 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j;
 
-import de.chrthms.hmatic4j.core.HMServiceBuilder;
-import de.chrthms.hmatic4j.core.impl.HMServiceBuilderImpl;
+package de.chrthms.hmatic4j.core.commands.impl.get.value;
+
+import de.chrthms.hmatic4j.core.commands.HMCommand;
+import de.chrthms.hmatic4j.core.commands.datatypes.ValueType;
+import de.chrthms.hmatic4j.core.commands.enums.ValueTypeMode;
 
 /**
  *
  * @author christian
  */
-public interface HMaticAPI {
-    
-    static HMServiceBuilder getInstance() {
-        return new HMServiceBuilderImpl();
+public class GetValueLevel extends AbstractGetValue implements HMCommand {
+
+    @Override
+    public Class<?> getExpectedClass() {
+        return valueTypeMode == ValueTypeMode.SIMPLE_VALUE ? Double.class : ValueType.class;
+    }
+
+    @Override
+    protected String getValueKey() {
+        return "LEVEL";
     }
     
 }

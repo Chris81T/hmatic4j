@@ -13,19 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j;
 
-import de.chrthms.hmatic4j.core.HMServiceBuilder;
-import de.chrthms.hmatic4j.core.impl.HMServiceBuilderImpl;
+package de.chrthms.hmatic4j.core.commands.impl.get.value;
+
+import de.chrthms.hmatic4j.core.commands.HMCommand;
 
 /**
  *
  * @author christian
  */
-public interface HMaticAPI {
-    
-    static HMServiceBuilder getInstance() {
-        return new HMServiceBuilderImpl();
+public class GetValueWorking extends AbstractGetValue implements HMCommand {
+
+    @Override
+    public Class<?> getExpectedClass() {
+        return Boolean.class;
+    }
+
+    @Override
+    protected String getValueKey() {
+        return "WORKING";
     }
     
 }

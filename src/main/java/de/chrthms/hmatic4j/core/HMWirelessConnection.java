@@ -13,19 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j;
+package de.chrthms.hmatic4j.core;
 
-import de.chrthms.hmatic4j.core.HMServiceBuilder;
-import de.chrthms.hmatic4j.core.impl.HMServiceBuilderImpl;
+import de.chrthms.hmatic4j.core.commands.enums.RxMode;
 
 /**
  *
  * @author christian
  */
-public interface HMaticAPI {
-    
-    static HMServiceBuilder getInstance() {
-        return new HMServiceBuilderImpl();
-    }
+public interface HMWirelessConnection extends HMConnection {
+ 
+    /**
+     * The default mode is BURST.
+     * 
+     * @param mode
+     * @return 
+     */
+    HMWirelessConnection rxMode(RxMode mode);
     
 }

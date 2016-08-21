@@ -13,19 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j;
 
-import de.chrthms.hmatic4j.core.HMServiceBuilder;
-import de.chrthms.hmatic4j.core.impl.HMServiceBuilderImpl;
+package de.chrthms.hmatic4j.core.commands.impl;
 
 /**
  *
  * @author christian
  */
-public interface HMaticAPI {
-    
-    static HMServiceBuilder getInstance() {
-        return new HMServiceBuilderImpl();
-    }
-    
+public abstract class AbstractResultCommand extends AbstractCommand {
+
+    /**
+     * Normally a command expects the same class every time.
+     * 
+     * But some commands vary the result class type. Check for instance the
+     * getValue command.
+     * 
+     * @return relevant class
+     */
+    public abstract Class<?> getExpectedClass();
+
 }

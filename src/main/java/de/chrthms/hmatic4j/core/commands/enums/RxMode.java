@@ -13,19 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j;
-
-import de.chrthms.hmatic4j.core.HMServiceBuilder;
-import de.chrthms.hmatic4j.core.impl.HMServiceBuilderImpl;
+package de.chrthms.hmatic4j.core.commands.enums;
 
 /**
  *
  * @author christian
  */
-public interface HMaticAPI {
+public enum RxMode {
     
-    static HMServiceBuilder getInstance() {
-        return new HMServiceBuilderImpl();
-    }
+    BURST,
+    WAKEUP
     
 }

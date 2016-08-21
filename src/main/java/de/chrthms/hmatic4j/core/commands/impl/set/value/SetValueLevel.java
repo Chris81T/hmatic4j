@@ -13,19 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j;
 
-import de.chrthms.hmatic4j.core.HMServiceBuilder;
-import de.chrthms.hmatic4j.core.impl.HMServiceBuilderImpl;
+package de.chrthms.hmatic4j.core.commands.impl.set.value;
+
+import de.chrthms.hmatic4j.core.commands.HMCommand;
 
 /**
  *
  * @author christian
  */
-public interface HMaticAPI {
+public class SetValueLevel extends AbstractSetValue<Double> implements HMCommand {
     
-    static HMServiceBuilder getInstance() {
-        return new HMServiceBuilderImpl();
+    private Double value = null;
+    
+    public SetValueLevel value(Double value) {
+        this.value = value;
+        return this;
+    }
+
+    @Override
+    protected String getValueKey() {
+        return "LEVEL";
+    }
+
+    @Override
+    protected Double getValue() {
+        return value;
     }
     
 }

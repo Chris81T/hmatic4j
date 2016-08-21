@@ -13,19 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j;
+package de.chrthms.hmatic4j.core.impl;
 
-import de.chrthms.hmatic4j.core.HMServiceBuilder;
-import de.chrthms.hmatic4j.core.impl.HMServiceBuilderImpl;
+import de.chrthms.hmatic4j.core.HMConnection;
+import de.chrthms.hmatic4j.core.HMWiredConnection;
 
 /**
  *
  * @author christian
  */
-public interface HMaticAPI {
+public class HMWiredConnectionImpl extends AbstractConnectionImpl implements HMWiredConnection {
+
+    private static final String PORT = "2000";
     
-    static HMServiceBuilder getInstance() {
-        return new HMServiceBuilderImpl();
+    public HMWiredConnectionImpl(HMServiceImpl service) {
+        super(service, PORT);
     }
     
 }

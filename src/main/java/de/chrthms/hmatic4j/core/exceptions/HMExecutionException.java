@@ -13,19 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j;
 
-import de.chrthms.hmatic4j.core.HMServiceBuilder;
-import de.chrthms.hmatic4j.core.impl.HMServiceBuilderImpl;
+package de.chrthms.hmatic4j.core.exceptions;
 
 /**
  *
  * @author christian
  */
-public interface HMaticAPI {
-    
-    static HMServiceBuilder getInstance() {
-        return new HMServiceBuilderImpl();
+public class HMExecutionException extends RuntimeException {
+
+    public HMExecutionException(String message) {
+        super(message);
+    }
+
+    public HMExecutionException(String message, Throwable cause) {
+        super(message, cause);
     }
     
 }

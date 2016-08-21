@@ -13,19 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j;
+package de.chrthms.hmatic4j.core.impl;
 
-import de.chrthms.hmatic4j.core.HMServiceBuilder;
-import de.chrthms.hmatic4j.core.impl.HMServiceBuilderImpl;
+import de.chrthms.hmatic4j.core.HMWirelessConnection;
+import de.chrthms.hmatic4j.core.commands.enums.RxMode;
 
 /**
  *
  * @author christian
  */
-public interface HMaticAPI {
+public class HMWirelessConnectionImpl extends AbstractConnectionImpl implements HMWirelessConnection {
+
+    private static final String PORT = "2001";
     
-    static HMServiceBuilder getInstance() {
-        return new HMServiceBuilderImpl();
+    private RxMode mode = RxMode.BURST;
+    
+    public HMWirelessConnectionImpl(HMServiceImpl service) {
+        super(service, PORT);
+    }
+
+    public RxMode getRxMode() {
+        return mode;
+    }
+    
+    @Override
+    public HMWirelessConnection rxMode(RxMode mode) {
+        this.mode = mode;
+        return this;
     }
     
 }
