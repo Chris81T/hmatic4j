@@ -29,7 +29,7 @@ public class HMWirelessConnectionImpl extends AbstractConnectionImpl implements 
     private RxMode mode = RxMode.BURST;
     
     public HMWirelessConnectionImpl(HMServiceImpl service) {
-        super(service, PORT);
+        super(service, PORT, HMWirelessConnectionImpl.class);
     }
 
     public RxMode getRxMode() {

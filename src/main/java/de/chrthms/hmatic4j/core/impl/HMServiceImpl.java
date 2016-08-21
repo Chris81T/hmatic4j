@@ -35,6 +35,10 @@ class HMServiceImpl implements HMService {
         return new HMConnectionBuilderImpl(this);
     }
 
+    /**
+     * To establish the connection, this address is relevant.
+     * @return the xml-rpc server address
+     */
     public String getRpcServerAddress() {
         return rpcServerAddress;
     }

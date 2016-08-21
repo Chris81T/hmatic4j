@@ -22,11 +22,14 @@ import de.chrthms.hmatic4j.core.commands.impl.AbstractResultCommand;
 import de.chrthms.hmatic4j.core.exceptions.HMExecutionException;
 import de.chrthms.hmatic4j.core.exceptions.HMConnectionException;
 import de.chrthms.hmatic4j.core.exceptions.HMUnsupportedException;
+import de.chrthms.hmatic4j.core.helpers.ConcatHelper;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -34,6 +37,8 @@ import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
  */
 public abstract class AbstractConnectionImpl implements HMConnection {
  
+    private final Logger LOG;
+    
     private final HMServiceImpl service;
 
     private String port;
@@ -42,33 +47,36 @@ public abstract class AbstractConnectionImpl implements HMConnection {
     private XmlRpcClientConfigImpl xmlRpcConfig = null;
     private XmlRpcClient xmlRpcClient = null;    
     
-    AbstractConnectionImpl(HMServiceImpl service, String port) {
+    AbstractConnectionImpl(HMServiceImpl service, String port, Class<? extends AbstractConnectionImpl> loggerClass) {
         this.service = service;
         this.port = port;
+        this.LOG = LoggerFactory.getLogger(loggerClass);
     }
     
     private String getUrl() {
-        StringBuilder builder = new StringBuilder();
         final String rpcServerAddress = service.getRpcServerAddress();
+        LOG.trace("check given rpcServerAddress {} and build desired URL", rpcServerAddress);
+
+        StringBuilder builder = new StringBuilder();
         
         if (!rpcServerAddress.startsWith("http")) builder.append("http://");        
-        builder.append(rpcServerAddress);
-        builder.append(":");
-        builder.append(port);
+        builder.append(ConcatHelper.concatAddressPort(rpcServerAddress, port));
         
         return builder.toString();
     }    
     
     /**
      * Lazy Loading. When the first time the executeRpcCall or singleResult method will
- be invoked, the xmlRpcClient will be instantiated.
+     * be invoked, the xmlRpcClient will be instantiated.
      * 
      * @return the xmlRpcClient instance 
      */
     private XmlRpcClient getXmlRpcClient() throws HMConnectionException {
+        LOG.trace("about to return XmlRpcClient = ", xmlRpcClient);
         if (xmlRpcClient == null) {
-            
+                        
             final String url = getUrl();
+            LOG.debug("lazy loading: create xmlRpcClient using the url {}", url);
             
             try {
                 xmlRpcConfig = new XmlRpcClientConfigImpl();
@@ -85,6 +93,7 @@ public abstract class AbstractConnectionImpl implements HMConnection {
     }
 
     private AbstractCommand castCommand() throws HMConnectionException {
+        LOG.trace("cast command interface to AbstractCommand");
         if (!(command instanceof AbstractCommand)) {
             throw new HMConnectionException("Command does not extend AbstractCommand! Class name = " + command.getClass().getSimpleName());
         }
@@ -92,6 +101,7 @@ public abstract class AbstractConnectionImpl implements HMConnection {
     }
     
     private AbstractResultCommand castResultCommand() throws HMConnectionException {
+        LOG.trace("cast command interface to AbstractResultCommand");
         if (!(command instanceof AbstractResultCommand)) {
             throw new HMConnectionException("Command does not extend AbstractResultCommand! Class name = " + command.getClass().getSimpleName());
         }
@@ -100,6 +110,7 @@ public abstract class AbstractConnectionImpl implements HMConnection {
     
     public Object executeRpcCall(final String methodName, Object... params) throws HMExecutionException {
         try {
+            LOG.info("about to execute xml-rpc call with methodName = {} and params = {}", methodName, params);
             return getXmlRpcClient().execute(methodName, params);
         } catch (XmlRpcException e) {
             throw new HMExecutionException("Could not perform xml-rpc execution!", e);
@@ -115,11 +126,13 @@ public abstract class AbstractConnectionImpl implements HMConnection {
     }
 
     public HMWiredConnectionImpl castToWiredImpl() throws HMConnectionException {
+        LOG.trace("If allowed, cast given instance {} to HMWiredConnectionImpl", this);
         if (isWireless()) throw new HMConnectionException("This instance is not a wired connection implementation!");
         return (HMWiredConnectionImpl) this;
     }
     
     public HMWirelessConnectionImpl castToWirelessImpl() throws HMConnectionException {
+        LOG.trace("If allowed, cast given instance {} to HMWirelessConnectionImpl", this);
         if (isWired()) throw new HMConnectionException("This instance is not a wireless connection implementation!");
         return (HMWirelessConnectionImpl) this;
     }
@@ -138,16 +151,19 @@ public abstract class AbstractConnectionImpl implements HMConnection {
     
     @Override
     public void execute() throws HMConnectionException, HMUnsupportedException, HMExecutionException {
+        LOG.debug("about to invoke the command's execute method. Command = {}", command);
         castCommand().execute(this);
     }
 
     @Override
     public Object singleResult() throws HMConnectionException, HMUnsupportedException, HMExecutionException {
+        LOG.debug("about to invoke the command's singleResult method. Command = {}", command);
         return castCommand().singleResult(this);
     }   
     
     @Override
     public <T> T singleResult(Class<T> resultClass) throws HMConnectionException, HMUnsupportedException, HMExecutionException {
+        LOG.debug("about to prepare the typed singleResult invocation of the command = {}", command);
         
         /**
          * Before invoking the rpc call, first compare commands expected class with

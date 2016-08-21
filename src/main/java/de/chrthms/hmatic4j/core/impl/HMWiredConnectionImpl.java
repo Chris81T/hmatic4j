@@ -15,7 +15,6 @@
  */
 package de.chrthms.hmatic4j.core.impl;
 
-import de.chrthms.hmatic4j.core.HMConnection;
 import de.chrthms.hmatic4j.core.HMWiredConnection;
 
 /**
@@ -27,7 +26,7 @@ public class HMWiredConnectionImpl extends AbstractConnectionImpl implements HMW
     private static final String PORT = "2000";
     
     public HMWiredConnectionImpl(HMServiceImpl service) {
-        super(service, PORT);
+        super(service, PORT, HMWiredConnectionImpl.class);
     }
     
 }

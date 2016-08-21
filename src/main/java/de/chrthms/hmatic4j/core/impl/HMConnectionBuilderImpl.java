@@ -18,6 +18,8 @@ package de.chrthms.hmatic4j.core.impl;
 import de.chrthms.hmatic4j.core.HMConnectionBuilder;
 import de.chrthms.hmatic4j.core.HMWiredConnection;
 import de.chrthms.hmatic4j.core.HMWirelessConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -25,6 +27,8 @@ import de.chrthms.hmatic4j.core.HMWirelessConnection;
  */
 class HMConnectionBuilderImpl implements HMConnectionBuilder {
 
+    private static final Logger LOG = LoggerFactory.getLogger(HMConnectionBuilderImpl.class);
+    
     private final HMServiceImpl service;
     
     public HMConnectionBuilderImpl(HMServiceImpl service) {
@@ -32,12 +36,14 @@ class HMConnectionBuilderImpl implements HMConnectionBuilder {
     }
 
     @Override
-    public HMWiredConnection wired() {
+    public HMWiredConnection wired() {        
+        LOG.debug("a wired connection is requested");
         return new HMWiredConnectionImpl(service);
     }
 
     @Override
     public HMWirelessConnection wireless() {
+        LOG.debug("a wireless connection is requested");
         return new HMWirelessConnectionImpl(service);
     }
     

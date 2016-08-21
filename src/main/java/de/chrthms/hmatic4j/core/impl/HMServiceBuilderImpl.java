@@ -20,6 +20,8 @@ import de.chrthms.hmatic4j.core.HMService;
 import de.chrthms.hmatic4j.core.HMServiceBuilder;
 import de.chrthms.hmatic4j.core.HMWiredConnection;
 import de.chrthms.hmatic4j.core.HMWirelessConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -27,6 +29,8 @@ import de.chrthms.hmatic4j.core.HMWirelessConnection;
  */
 public class HMServiceBuilderImpl implements HMServiceBuilder {
 
+    private static final Logger LOG = LoggerFactory.getLogger(HMServiceBuilderImpl.class);
+    
     private String rpcServerAddress = null;
     
     @Override
@@ -42,6 +46,13 @@ public class HMServiceBuilderImpl implements HMServiceBuilder {
 
     @Override
     public HMService service() {
+        LOG.debug("the service is requested. Check, if rpcServerAddress = {} is set. If not, use the default configuration "
+                + "per convention.", rpcServerAddress);
+        
+        if (rpcServerAddress == null) {
+            return config().service();
+        }
+        
         return new HMServiceImpl(rpcServerAddress);
     }
 
@@ -70,8 +81,10 @@ public class HMServiceBuilderImpl implements HMServiceBuilder {
 
         @Override
         public HMService service() {
-                        
+            LOG.trace("check, if configPath = {} is set. Else use configuration per convention");
+
             // TODO load config and set address to instantiate the Service Impl
+            LOG.warn("!! actually the config part not yet implemented !!");
             final String address = "";
             
             return new HMServiceImpl(address);
