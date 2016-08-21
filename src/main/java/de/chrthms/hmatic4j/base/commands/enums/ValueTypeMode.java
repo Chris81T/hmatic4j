@@ -13,27 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.backup.rpc.commands.setvalue;
-
-import de.chrthms.backup.rpc.commands.SetValueCmd;
+package de.chrthms.hmatic4j.base.commands.enums;
 
 /**
  *
  * @author christian
  */
-public class SetValueStop implements SetValueCmd<Boolean> {
-
-    private static final String PARAM = "STOP";
-    private static final Boolean VALUE = true;
+public enum ValueTypeMode {
     
-    @Override
-    public String getParam() {
-        return PARAM;
+    SIMPLE_VALUE(0),
+    STRUCT_VALUE(1);
+
+    private final Integer mode;
+    
+    private ValueTypeMode(Integer mode) {
+        this.mode = mode;
     }
 
-    @Override
-    public Boolean getValue() {
-        return VALUE;
+    public Integer getAsInt() {
+        return mode;
     }
     
 }
