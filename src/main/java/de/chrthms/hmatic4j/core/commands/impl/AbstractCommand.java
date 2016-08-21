@@ -36,12 +36,42 @@ public abstract class AbstractCommand implements HMCommand {
 
     protected abstract String getMethodName();
     
-    protected String concatAddressWithChannel() {
+    protected String concatAndValidateAddressWithChannel() {
+        validateDeviceAddress();
+        validateDeviceChannel();
         return new StringBuilder()
                 .append(deviceAddress)
                 .append(":")
                 .append(deviceChannel)
                 .toString();
+    }
+    
+    /**
+     * Will only concatenate address with channel, if channel is set.
+     * 
+     * The device address will be validated!
+     * 
+     * @return address with channel or address only.
+     */
+    protected String concatAndValidateAddressWithChannelIfSet() {
+        validateDeviceAddress();
+        StringBuilder addressBuilder = new StringBuilder(deviceAddress);
+        
+        if (deviceChannel != null) {
+            addressBuilder.append(":");
+            addressBuilder.append(deviceChannel);                    
+        }
+        
+        return addressBuilder.toString();
+        
+    }
+    
+    protected void validateDeviceAddress() throws HMExecutionException {
+        if (deviceAddress == null) throw new HMExecutionException("a device address must be set!");
+    }
+
+    protected void validateDeviceChannel() throws HMExecutionException {
+        if (deviceChannel == null) throw new HMExecutionException("a device channel must be set!");
     }
     
     @Override

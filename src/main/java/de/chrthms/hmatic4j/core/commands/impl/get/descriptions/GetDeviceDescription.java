@@ -14,45 +14,43 @@
  * limitations under the License.
  */
 
-package de.chrthms.hmatic4j.core.commands.impl.set.value;
+package de.chrthms.hmatic4j.core.commands.impl.get.descriptions;
 
-import de.chrthms.hmatic4j.core.commands.impl.AbstractCommand;
+import de.chrthms.hmatic4j.core.commands.HMCommand;
+import de.chrthms.hmatic4j.core.commands.impl.AbstractResultCommand;
 import de.chrthms.hmatic4j.core.exceptions.HMExecutionException;
 import de.chrthms.hmatic4j.core.exceptions.HMUnsupportedException;
 import de.chrthms.hmatic4j.core.impl.AbstractConnectionImpl;
-import de.chrthms.hmatic4j.core.impl.HMWirelessConnectionImpl;
 
 /**
- *
+ * Command will return some information about the target device.
+ * 
+ * It is possible to simply set the address without a channel (typically parent device)
+ * or to set the channel to get information about the child device.
+ * 
  * @author christian
- * @param <T> is relevant for the concrete SetValue class.
  */
-public abstract class AbstractSetValue<T> extends AbstractCommand {
-   
-    abstract protected String getValueKey();
+public class GetDeviceDescription extends AbstractResultCommand implements HMCommand {
 
-    abstract protected T getValue();
-    
     @Override
-    protected String getMethodName() {
-        return "setValue";
+    public Class<?> getExpectedClass() {
+        throw new UnsupportedOperationException("Not supported yet. A concrete datatype Class must be implemented!"); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public void execute(AbstractConnectionImpl connection) throws HMUnsupportedException, HMExecutionException {
-
-        if (connection.isWireless()) {
-            HMWirelessConnectionImpl wirelessConnection = connection.castToWirelessImpl();
-            connection.executeRpcCall(getMethodName(), concatAndValidateAddressWithChannel(), getValueKey(), getValue(), wirelessConnection.getRxMode().toString());
-        } else {
-            connection.executeRpcCall(getMethodName(), concatAndValidateAddressWithChannel(), getValueKey(), getValue());            
-        }
-
+        throw new HMUnsupportedException();
     }
 
     @Override
     public Object singleResult(AbstractConnectionImpl connection) throws HMUnsupportedException, HMExecutionException {
-        throw new HMUnsupportedException();
+        
+        return connection.executeRpcCall(getMethodName(), concatAndValidateAddressWithChannelIfSet());
+    }
+
+    @Override
+    protected String getMethodName() {
+        return "getDeviceDescription";
     }
     
 }

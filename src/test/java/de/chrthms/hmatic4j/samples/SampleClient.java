@@ -18,6 +18,8 @@ package de.chrthms.hmatic4j.samples;
 import de.chrthms.hmatic4j.core.commands.HMCommand;
 import de.chrthms.hmatic4j.HMaticAPI;
 import de.chrthms.hmatic4j.core.commands.enums.RxMode;
+import de.chrthms.hmatic4j.core.commands.impl.get.value.GetValueLevel;
+import de.chrthms.hmatic4j.core.commands.impl.set.value.SetValueLevel;
 import de.chrthms.hmatic4j.core.commands.impl.set.value.SetValueStop;
 
 /**
@@ -33,7 +35,7 @@ public class SampleClient {
                 .service()
                 .connection()
                 .wireless()
-                .command(null)
+                .command(null /* place command here */)
                 .singleResult();
         
         HMaticAPI.getInstance()
@@ -41,14 +43,19 @@ public class SampleClient {
                 .configPath("some/path/to/properties/file")
                 .service()
                 .connection()
-                .wired()
-                .command(null)
+                .wired()                
+                .command(new SetValueLevel()
+                    .value(0.8)
+                    .deviceAddress("abdcdfgdf4324")
+                    .deviceChannel("1"))
                 .execute();
         
         HMaticAPI.getInstance()
                 .rpcServerAddress("127.0.0.1")
                 .wireless()
-                .command(null)
+                .command(new SetValueStop()
+                    .deviceAddress("32scdef1234567")
+                    .deviceChannel("1"))
                 .execute();
         
         HMaticAPI.getInstance()
@@ -60,9 +67,11 @@ public class SampleClient {
                     .deviceChannel("1"))
                 .execute();
         
-        Double singleResult = HMaticAPI.getInstance()
+        Double currentLevel = HMaticAPI.getInstance()
                 .wireless()
-                .command(null)
+                .command(new GetValueLevel()
+                    .deviceAddress("abdcdfgdf4324")
+                    .deviceChannel("1"))
                 .singleResult(Double.class);
         
     }

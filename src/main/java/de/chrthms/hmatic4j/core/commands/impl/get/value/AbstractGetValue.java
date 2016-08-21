@@ -48,7 +48,7 @@ public abstract class AbstractGetValue extends AbstractResultCommand {
     public Object singleResult(AbstractConnectionImpl connection) throws HMUnsupportedException, HMExecutionException {
 
         if (connection.isWireless()) {
-            Object resultCall = connection.executeRpcCall(getMethodName(), concatAddressWithChannel(), getValueKey(), valueTypeMode.getAsInt());
+            Object resultCall = connection.executeRpcCall(getMethodName(), concatAndValidateAddressWithChannel(), getValueKey(), valueTypeMode.getAsInt());
             
             switch (valueTypeMode) {
                 case SIMPLE_VALUE:
@@ -65,7 +65,7 @@ public abstract class AbstractGetValue extends AbstractResultCommand {
                     throw new HMExecutionException("Given valueTypeMode is not supported!");
             }
         } else {
-            return connection.executeRpcCall(getMethodName(), concatAddressWithChannel(), getValueKey());            
+            return connection.executeRpcCall(getMethodName(), concatAndValidateAddressWithChannel(), getValueKey());            
         }
 
     }
