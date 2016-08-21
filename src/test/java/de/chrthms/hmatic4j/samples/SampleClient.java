@@ -19,8 +19,10 @@ import de.chrthms.hmatic4j.core.commands.HMCommand;
 import de.chrthms.hmatic4j.HMaticAPI;
 import de.chrthms.hmatic4j.core.commands.enums.RxMode;
 import de.chrthms.hmatic4j.core.commands.impl.get.value.GetValueLevel;
+import de.chrthms.hmatic4j.core.commands.impl.init.LogicLayerInit;
 import de.chrthms.hmatic4j.core.commands.impl.set.value.SetValueLevel;
 import de.chrthms.hmatic4j.core.commands.impl.set.value.SetValueStop;
+import de.chrthms.hmatic4j.core.helpers.ConcatHelper;
 
 /**
  *
@@ -73,6 +75,8 @@ public class SampleClient {
                     .deviceAddress("abdcdfgdf4324")
                     .deviceChannel("1"))
                 .singleResult(Double.class);
+        
+        LogicLayerInit logicLayerInit = new LogicLayerInit();
         
     }
     

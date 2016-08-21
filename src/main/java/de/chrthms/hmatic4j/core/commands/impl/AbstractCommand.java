@@ -19,6 +19,7 @@ package de.chrthms.hmatic4j.core.commands.impl;
 import de.chrthms.hmatic4j.core.commands.HMCommand;
 import de.chrthms.hmatic4j.core.exceptions.HMExecutionException;
 import de.chrthms.hmatic4j.core.exceptions.HMUnsupportedException;
+import de.chrthms.hmatic4j.core.helpers.ConcatHelper;
 import de.chrthms.hmatic4j.core.impl.AbstractConnectionImpl;
 
 /**
@@ -39,11 +40,7 @@ public abstract class AbstractCommand implements HMCommand {
     protected String concatAndValidateAddressWithChannel() {
         validateDeviceAddress();
         validateDeviceChannel();
-        return new StringBuilder()
-                .append(deviceAddress)
-                .append(":")
-                .append(deviceChannel)
-                .toString();
+        return ConcatHelper.concatAddressChannel(deviceAddress, deviceChannel);
     }
     
     /**
