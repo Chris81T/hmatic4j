@@ -15,6 +15,8 @@
  */
 package de.chrthms.hmatic4j.core;
 
+import de.chrthms.hmatic4j.event.client.HMObserver;
+
 /**
  *
  * @author christian
@@ -49,5 +51,11 @@ public interface HMServiceBuilder {
      * @return 
      */
     HMWirelessConnection wireless();
+    
+    /**
+     * Quick access to observe some event
+     * @return 
+     */    
+    HMObserver observe();
     
 }

@@ -17,6 +17,10 @@ package de.chrthms.hmatic4j.core.impl;
 
 import de.chrthms.hmatic4j.core.HMConnectionBuilder;
 import de.chrthms.hmatic4j.core.HMService;
+import de.chrthms.hmatic4j.core.exceptions.HMPluginException;
+import de.chrthms.hmatic4j.event.client.HMEventBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -24,6 +28,10 @@ import de.chrthms.hmatic4j.core.HMService;
  */
 class HMServiceImpl implements HMService {
 
+    private static final String PLUGIN_EVENT_CLASS = "de.chrthms.hmatic4j.event.core.impl.HMEventBuilderImpl";
+    
+    private static final Logger LOG = LoggerFactory.getLogger(HMServiceImpl.class);
+    
     private final String rpcServerAddress;
     
     public HMServiceImpl(String rpcServerAddress) {
@@ -41,6 +49,30 @@ class HMServiceImpl implements HMService {
      */
     public String getRpcServerAddress() {
         return rpcServerAddress;
+    }
+
+    @Override
+    public HMEventBuilder event() throws HMPluginException {
+
+        ClassLoader classLoader = getClass().getClassLoader();
+
+        try {
+            LOG.debug("trying to load class {} using classLoader", PLUGIN_EVENT_CLASS);
+            Class pluginClass = classLoader.loadClass(PLUGIN_EVENT_CLASS);
+            
+            HMEventBuilder pluginImpl = (HMEventBuilder) pluginClass.newInstance();
+            LOG.debug("successfully instantiated plugin implementation {}", pluginImpl);
+            return pluginImpl;
+            
+        } catch (ClassNotFoundException e) {
+            throw new HMPluginException(PLUGIN_EVENT_CLASS + " was not found! Check, that the pluggable hmatic4j-event.jar is available for the classloader!", e);
+        } catch (InstantiationException e) {
+            throw new HMPluginException("Could not instantiate plugin implementation for interface " + HMEventBuilder.class.getSimpleName(), e);
+        } catch (IllegalAccessException e) {
+            throw new HMPluginException("Illegal Access detected. Could not instantiate plugin implementation for interface " + 
+                    HMEventBuilder.class.getSimpleName(), e);
+        }
+        
     }
     
 }

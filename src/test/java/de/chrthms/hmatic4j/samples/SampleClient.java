@@ -15,14 +15,12 @@
  */
 package de.chrthms.hmatic4j.samples;
 
-import de.chrthms.hmatic4j.core.commands.HMCommand;
 import de.chrthms.hmatic4j.HMaticAPI;
 import de.chrthms.hmatic4j.core.commands.enums.RxMode;
 import de.chrthms.hmatic4j.core.commands.impl.get.value.GetValueLevel;
 import de.chrthms.hmatic4j.core.commands.impl.init.LogicLayerInit;
 import de.chrthms.hmatic4j.core.commands.impl.set.value.SetValueLevel;
 import de.chrthms.hmatic4j.core.commands.impl.set.value.SetValueStop;
-import de.chrthms.hmatic4j.core.helpers.ConcatHelper;
 
 /**
  *
@@ -31,6 +29,12 @@ import de.chrthms.hmatic4j.core.helpers.ConcatHelper;
 public class SampleClient {
     
     public static void main(String... args) {
+        
+        System.out.println(HMaticAPI.getInstance()
+                .rpcServerAddress("127.0.0.1")
+                .observe());
+        
+        if (true) return;
         
         Object result = HMaticAPI.getInstance()
                 .rpcServerAddress("127.0.0.1")

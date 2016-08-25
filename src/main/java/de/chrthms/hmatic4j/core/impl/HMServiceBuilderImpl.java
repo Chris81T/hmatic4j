@@ -20,6 +20,7 @@ import de.chrthms.hmatic4j.core.HMService;
 import de.chrthms.hmatic4j.core.HMServiceBuilder;
 import de.chrthms.hmatic4j.core.HMWiredConnection;
 import de.chrthms.hmatic4j.core.HMWirelessConnection;
+import de.chrthms.hmatic4j.event.client.HMObserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,6 +65,11 @@ public class HMServiceBuilderImpl implements HMServiceBuilder {
     @Override
     public HMWirelessConnection wireless() {
         return service().connection().wireless();
+    }
+
+    @Override
+    public HMObserver observe() {
+        return service().event().observe();
     }
 
     private static class HMConfigImpl implements HMConfig {

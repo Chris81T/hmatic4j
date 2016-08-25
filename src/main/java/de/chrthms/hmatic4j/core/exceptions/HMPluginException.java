@@ -13,18 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.chrthms.hmatic4j.core;
 
-import de.chrthms.hmatic4j.core.exceptions.HMPluginException;
-import de.chrthms.hmatic4j.event.client.HMEventBuilder;
+package de.chrthms.hmatic4j.core.exceptions;
 
 /**
  *
  * @author christian
  */
-public interface HMService {
-    
-    HMConnectionBuilder connection();
-    HMEventBuilder event() throws HMPluginException;
+public class HMPluginException extends RuntimeException {
+
+    public HMPluginException(String message) {
+        super(message);
+    }
+
+    public HMPluginException(String message, Throwable cause) {
+        super(message, cause);
+    }
     
 }

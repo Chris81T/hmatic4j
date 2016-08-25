@@ -19,6 +19,14 @@
     </properties>
 
     <dependencies>
+        
+        <dependency>
+            <groupId>de.chrthms.hmatic4j</groupId>
+            <artifactId>hmatic4j-event</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <classifier>client</classifier>
+        </dependency>
+        
         <dependency>
             <groupId>org.apache.xmlrpc</groupId>
             <artifactId>xmlrpc-common</artifactId>
@@ -38,21 +46,6 @@
                 <exclusion>
                     <groupId>junit</groupId>
                     <artifactId>junit</artifactId>
-                </exclusion>
-            </exclusions>                         
-        </dependency>
-        <dependency>
-            <groupId>org.apache.xmlrpc</groupId>
-            <artifactId>xmlrpc-server</artifactId>
-            <version>3.1.3</version>            
-            <exclusions>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
                 </exclusion>
             </exclusions>                         
         </dependency>
