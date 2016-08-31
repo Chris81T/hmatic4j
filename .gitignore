@@ -18,6 +18,7 @@ nbactions.xml
 .project
 .settings
 .metadata
+.directory
 .idea
 additional-libraries
 profiles.xml
