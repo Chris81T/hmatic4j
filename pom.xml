@@ -10,7 +10,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     
-    <name>hmatic4j : ${project.version}</name>
+    <name>${project.artifactId} : ${project.version}</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
