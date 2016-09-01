@@ -30,17 +30,27 @@ public abstract class AbstractInit extends AbstractCommand {
 
     private String logicRpcServerAddress = null;
     private String logicRpcServerPort = null;
+    private String logicRpcServerPath = "/";
     
     protected abstract String getIterfaceId() throws HMExecutionException;
     
     private String getLogicRpcServerUrl() throws HMExecutionException {
         if (logicRpcServerAddress == null) throw new HMExecutionException("An URL for the rpc server (logic side) must be set!");
         
+        StringBuilder serverUrl = new StringBuilder();
+        
         if (logicRpcServerPort != null) {
-            return ConcatHelper.concatAddressPort(logicRpcServerAddress, logicRpcServerPort);
+            serverUrl.append(ConcatHelper.concatAddressPort(logicRpcServerAddress, logicRpcServerPort));
         } else {
-            return logicRpcServerAddress;
+            serverUrl.append(logicRpcServerAddress);
         }
+        
+        if (!logicRpcServerPath.startsWith("/")) {
+            serverUrl.append("/");
+        }
+        
+        serverUrl.append(logicRpcServerPath);
+        return serverUrl.toString();
     }
     
     public AbstractInit logicRpcServerAddress(String logicRpcServerAddress) {
@@ -50,6 +60,11 @@ public abstract class AbstractInit extends AbstractCommand {
     
     public AbstractInit logicRpcServerPort(String logicRpcServerPort) {
         this.logicRpcServerPort = logicRpcServerPort;
+        return this;
+    }
+    
+    public AbstractInit logicRpcServerPath(String logicRpcServerPath) {
+        this.logicRpcServerPath = logicRpcServerPath;
         return this;
     }
     
