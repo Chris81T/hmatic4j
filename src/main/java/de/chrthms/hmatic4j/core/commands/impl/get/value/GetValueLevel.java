@@ -19,6 +19,7 @@ package de.chrthms.hmatic4j.core.commands.impl.get.value;
 import de.chrthms.hmatic4j.core.commands.HMCommand;
 import de.chrthms.hmatic4j.core.commands.datatypes.ValueType;
 import de.chrthms.hmatic4j.core.commands.enums.ValueTypeMode;
+import de.chrthms.hmatic4j.event.client.enums.ValueKey;
 
 /**
  *
@@ -33,7 +34,7 @@ public class GetValueLevel extends AbstractGetValue implements HMCommand {
 
     @Override
     protected String getValueKey() {
-        return "LEVEL";
+        return ValueKey.LEVEL.toString();
     }
     
 }

@@ -72,6 +72,11 @@ public class HMServiceBuilderImpl implements HMServiceBuilder {
         return service().event().observe();
     }
 
+    @Override
+    public void unobserve(String registryId) {
+        service().event().unobserve(registryId);
+    }
+
     private static class HMConfigImpl implements HMConfig {
 
         private String path = null;

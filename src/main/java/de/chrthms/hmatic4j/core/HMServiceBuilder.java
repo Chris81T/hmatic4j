@@ -57,5 +57,13 @@ public interface HMServiceBuilder {
      * @return 
      */    
     HMObserver observe();
+ 
+    /**
+     * Quick access to cancel active observer
+     * 
+     * @param registryId is that id, that will be returned (check onceOnly option),
+     *        if the observer will be started.
+     */
+    void unobserve(String registryId);
     
 }

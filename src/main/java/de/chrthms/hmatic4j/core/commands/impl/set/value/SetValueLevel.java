@@ -17,6 +17,7 @@
 package de.chrthms.hmatic4j.core.commands.impl.set.value;
 
 import de.chrthms.hmatic4j.core.commands.HMCommand;
+import de.chrthms.hmatic4j.event.client.enums.ValueKey;
 
 /**
  *
@@ -33,7 +34,7 @@ public class SetValueLevel extends AbstractSetValue<Double> implements HMCommand
 
     @Override
     protected String getValueKey() {
-        return "LEVEL";
+        return ValueKey.LEVEL.toString();
     }
 
     @Override

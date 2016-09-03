@@ -21,6 +21,7 @@ import de.chrthms.hmatic4j.core.commands.impl.get.value.GetValueLevel;
 import de.chrthms.hmatic4j.core.commands.impl.init.LogicLayerInit;
 import de.chrthms.hmatic4j.core.commands.impl.set.value.SetValueLevel;
 import de.chrthms.hmatic4j.core.commands.impl.set.value.SetValueStop;
+import java.util.Optional;
 
 /**
  *
@@ -29,10 +30,14 @@ import de.chrthms.hmatic4j.core.commands.impl.set.value.SetValueStop;
 public class SampleClient {
     
     public static void main(String... args) {
-        
-        System.out.println(HMaticAPI.getInstance()
+                
+        Optional<String> regId = HMaticAPI.getInstance()
                 .rpcServerAddress("127.0.0.1")
-                .observe());
+                .observe()
+                .onceOnly(true)
+                .start((address, channel, valueKey, value) -> {
+                    // do something with the input!
+                });
         
         if (true) return;
         

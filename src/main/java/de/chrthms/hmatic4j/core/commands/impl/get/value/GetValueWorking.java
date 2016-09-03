@@ -17,6 +17,7 @@
 package de.chrthms.hmatic4j.core.commands.impl.get.value;
 
 import de.chrthms.hmatic4j.core.commands.HMCommand;
+import de.chrthms.hmatic4j.event.client.enums.ValueKey;
 
 /**
  *
@@ -31,7 +32,7 @@ public class GetValueWorking extends AbstractGetValue implements HMCommand {
 
     @Override
     protected String getValueKey() {
-        return "WORKING";
+        return ValueKey.WORKING.toString();
     }
     
 }
