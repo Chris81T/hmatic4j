@@ -35,7 +35,7 @@ public class SampleClient {
                 .rpcServerAddress("127.0.0.1")
                 .observe()
                 .onceOnly(true)
-                .start((address, channel, valueKey, value) -> {
+                .start((incomingEvent) -> {
                     // do something with the input!
                 });
         
