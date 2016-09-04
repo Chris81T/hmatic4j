@@ -56,7 +56,7 @@ public class HMServiceBuilderImpl implements HMServiceBuilder {
         
         return new HMServiceImpl(rpcServerAddress);
     }
-
+    
     @Override
     public HMWiredConnection wired() {
         return service().connection().wired();
