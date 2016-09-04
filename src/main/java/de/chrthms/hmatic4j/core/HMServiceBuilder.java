@@ -39,7 +39,7 @@ public interface HMServiceBuilder {
     /**
      * Specify configuration for connections.
      * 
-     * TODO convention, if no configuration is given
+     * TODO describe convention, if no configuration is given
      */    
     HMConfig config();
     

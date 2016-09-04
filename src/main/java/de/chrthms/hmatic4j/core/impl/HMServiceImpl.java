@@ -18,7 +18,9 @@ package de.chrthms.hmatic4j.core.impl;
 import de.chrthms.hmatic4j.core.HMConnectionBuilder;
 import de.chrthms.hmatic4j.core.HMService;
 import de.chrthms.hmatic4j.core.exceptions.HMPluginException;
+import de.chrthms.hmatic4j.core.exceptions.HMServiceException;
 import de.chrthms.hmatic4j.event.client.HMEventBuilder;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,9 +34,9 @@ class HMServiceImpl implements HMService {
     
     private static final Logger LOG = LoggerFactory.getLogger(HMServiceImpl.class);
     
-    private final String rpcServerAddress;
+    private final Optional<String> rpcServerAddress;
     
-    public HMServiceImpl(String rpcServerAddress) {
+    public HMServiceImpl(Optional<String> rpcServerAddress) {
         this.rpcServerAddress = rpcServerAddress;
     }
 
@@ -47,8 +49,9 @@ class HMServiceImpl implements HMService {
      * To establish the connection, this address is relevant.
      * @return the xml-rpc server address
      */
-    public String getRpcServerAddress() {
-        return rpcServerAddress;
+    public String getRpcServerAddress() throws HMServiceException {
+        return rpcServerAddress.orElseThrow(() -> new HMServiceException("No RPC server address given! Check builder procedure. "
+                + "May passed the wrong path during building"));
     }
 
     @Override

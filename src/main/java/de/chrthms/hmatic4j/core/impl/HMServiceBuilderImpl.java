@@ -21,6 +21,7 @@ import de.chrthms.hmatic4j.core.HMServiceBuilder;
 import de.chrthms.hmatic4j.core.HMWiredConnection;
 import de.chrthms.hmatic4j.core.HMWirelessConnection;
 import de.chrthms.hmatic4j.event.client.HMObserver;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,6 +55,10 @@ public class HMServiceBuilderImpl implements HMServiceBuilder {
             return config().service();
         }
         
+        return createServiceInstance(Optional.of(rpcServerAddress));
+    }
+    
+    private HMService createServiceInstance(Optional<String> rpcServerAddress) {
         return new HMServiceImpl(rpcServerAddress);
     }
     
@@ -69,12 +74,12 @@ public class HMServiceBuilderImpl implements HMServiceBuilder {
 
     @Override
     public HMObserver observe() {
-        return service().event().observe();
+        return createServiceInstance(Optional.empty()).event().observe();
     }
 
     @Override
     public void unobserve(String registryId) {
-        service().event().unobserve(registryId);
+        createServiceInstance(Optional.empty()).event().unobserve(registryId);
     }
 
     private static class HMConfigImpl implements HMConfig {
@@ -98,7 +103,7 @@ public class HMServiceBuilderImpl implements HMServiceBuilder {
             LOG.warn("!! actually the config part not yet implemented !!");
             final String address = "";
             
-            return new HMServiceImpl(address);
+            return new HMServiceImpl(Optional.of(address));
         }               
 
         @Override
