@@ -7,7 +7,7 @@
     
     <groupId>de.chrthms.hmatic4j</groupId>
     <artifactId>hmatic4j</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     
     <name>${project.artifactId} : ${project.version}</name>
@@ -23,7 +23,7 @@
         <dependency>
             <groupId>de.chrthms.hmatic4j</groupId>
             <artifactId>hmatic4j-event</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0.0-SNAPSHOT</version>
             <classifier>client</classifier>
         </dependency>
         

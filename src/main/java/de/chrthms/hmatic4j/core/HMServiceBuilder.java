@@ -36,6 +36,11 @@ public interface HMServiceBuilder {
      */    
     HMServiceBuilder rpcServerAddress(String address);
     
+    /**
+     * Specify configuration for connections.
+     * 
+     * TODO convention, if no configuration is given
+     */    
     HMConfig config();
     
     HMService service();
